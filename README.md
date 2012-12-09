@@ -10,7 +10,7 @@ Install [sbt](http://www.scala-sbt.org/)
 ## Build & Run ##
 
 ```sh
-$ cd $name__snake$
+$ cd dojo-share
 $ ./sbt
 > container:start
 ```
