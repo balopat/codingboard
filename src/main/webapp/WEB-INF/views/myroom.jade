@@ -5,7 +5,8 @@
 div
     form(method="POST" action="/rooms/#{room}")
         div 
-            textarea(value="bla" name="room" id="room")
+            input(value="Description..." name="description" id="description")
+            textarea(value="bla" name="code" id="code")
             select(name="language" id="language")
                 option C#
                 option Java

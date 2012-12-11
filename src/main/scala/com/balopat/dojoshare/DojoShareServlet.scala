@@ -30,10 +30,16 @@ class DojoShareServlet extends ScalatraServlet with ScalateSupport {
   }
 
    post("/rooms/:room") {
-    val room = params("room")   
-    contentType="text/html"
-    jade("room", "counter" -> RoomEntries.get(room), "room" -> room) 
-    
+    <html> 
+      <body>
+        <b> ({params("description")}) </b> posted: 
+          <pre>
+              {params("code")}
+          </pre> 
+          in: {params("language")}
+
+     </body>
+   </html> 
   }
 
              
