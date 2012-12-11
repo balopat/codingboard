@@ -29,6 +29,22 @@ class DojoShareServlet extends ScalatraServlet with ScalateSupport {
     
   }
 
+   post("/rooms/:room") {
+    val room = params("room")   
+    contentType="text/html"
+    jade("room", "counter" -> RoomEntries.get(room), "room" -> room) 
+    
+  }
+
+             
+  get("/rooms/:room/mine") {
+
+    val room = params("room")   
+    contentType="text/html"
+    jade("myroom", "room" -> room) 
+    
+  }
+
 
   notFound {
     // remove content type in case it was set through an action
