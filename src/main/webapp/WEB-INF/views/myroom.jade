@@ -1,0 +1,14 @@
+-@val room: String
+- attributes("title") = "DojoShare - Share your code"
+- attributes("headline") = "Share your code"
+
+div
+    form(method="POST" action="/rooms/#{room}")
+        div 
+            textarea(value="bla" name="room" id="room")
+            select(name="language" id="language")
+                option C#
+                option Java
+                option Scala
+        div 
+            button(type="submit") Share your code
