@@ -1,9 +1,10 @@
-- attributes("title") = "DojoShare - Create room"
-- attributes("headline") = "Create your room"
+- attributes("title") = "DojoShare - Join room"
+- attributes("headline") = "Join room"
+-@val errorMessage: String = ""
 
-html
-    body
-        div
-            form
-                input Type the room you want to join
-                button Join
+h1 #{errorMessage} 
+
+div
+    form(action="/room" method="GET")
+        input(name="room") Type the room you want to join...
+        button Join

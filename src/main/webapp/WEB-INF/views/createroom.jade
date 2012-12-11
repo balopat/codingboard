@@ -1,3 +1,4 @@
+-@val errorMessage: String = ""
 - attributes("title") = "DojoShare - Create room"
 - attributes("headline") = "Create your room"
 
@@ -6,5 +7,7 @@ div
         div 
             label Name your room:
             input(value="bla" name="room" id="room")
+        div 
+            label #{errorMessage}
         div 
             button(type="submit") Create Your Room

@@ -1,8 +1,8 @@
 -@ val room: String
--@ val counter: Int
+-@ val entries: List[com.balopat.dojoshare.CodeSnippet]
 - attributes("title") = "DojoShare - " + room
 - attributes("headline") = "Room: " + room
 
 p
-    Well done, you entered: #{room}, #{counter} times
-
+    Well done, you entered: #{room}, #{entries} times
+    a(href="/rooms/#{room}/mine") post a code snippet

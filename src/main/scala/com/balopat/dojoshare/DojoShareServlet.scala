@@ -2,10 +2,19 @@ package com.balopat.dojoshare
 
 import org.scalatra._
 import scalate.ScalateSupport
-import com.balopat.dojoshare.RoomEntries.get
 
 class DojoShareServlet extends ScalatraServlet with ScalateSupport {
 
+  
+  
+  def joinRoom(room: String) = {
+    contentType="text/html"
+    if (RoomEntries.exists(room)) 
+         jade("room", "entries" -> RoomEntries.get(room),  "room" -> room)
+       else 
+         jade("joinroom", "errorMessage" -> "Room not found!")
+
+ }
 
 
   get("/") {
@@ -14,41 +23,40 @@ class DojoShareServlet extends ScalatraServlet with ScalateSupport {
   }
 
   post("/submitroom") {
-    <html>
-      <body>
-          Variables: {params("room")}
-        </body>
-      </html>
+    contentType="text/html"
+    val room = params("room")
+    if (!RoomEntries.exists(room)) { 
+      RoomEntries.create(room)
+      joinRoom(room)   
+    }else {
+      jade("createroom", "errorMessage" -> "This room already exists, do you want to join?", "room" -> room)
+    }
+  }
+
+  get("/createroom") {
+   contentType="text/html"
+   jade("createroom", "rooms" -> RoomEntries.rooms)
   }
 
   get("/rooms/:room") {
-
-    val room = params("room")   
-    contentType="text/html"
-    jade("room", "counter" -> RoomEntries.get(room), "room" -> room) 
-    
+    joinRoom(params("room"))   
   }
+  
+  get("/room") {
+    redirect("/rooms/" + params("room"))
+  }
+
 
    post("/rooms/:room") {
-    <html> 
-      <body>
-        <b> ({params("description")}) </b> posted: 
-          <pre>
-              {params("code")}
-          </pre> 
-          in: {params("language")}
-
-     </body>
-   </html> 
-  }
+       val room = params("room") 
+       RoomEntries.update(room, new CodeSnippet(params("description"), params("code"), params("language"), System.currentTimeMillis)) 
+       joinRoom(room)
+   }
 
              
   get("/rooms/:room/mine") {
-
-    val room = params("room")   
     contentType="text/html"
-    jade("myroom", "room" -> room) 
-    
+    jade("myroom", "room" -> params("room")) 
   }
 
 
