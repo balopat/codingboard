@@ -21,4 +21,8 @@ Now open the site's [root page](http://localhost:8080/) in your browser.
 
 [Install Scalatra](http://www.scalatra.org/getting-started/installation.html)
 
+## Heroku 
+
+[This is the link on Heroku](http://dojo-share.herokuapp.com/)
+
 That's it :) 
