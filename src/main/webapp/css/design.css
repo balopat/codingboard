@@ -1,0 +1,13 @@
+body,h1,div,input,p {
+    font-family: "Trebuchet MS"
+}
+
+h1 {
+    font-size: 21px
+}
+
+
+form {
+
+    background: #55ccff
+}
