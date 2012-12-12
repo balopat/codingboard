@@ -1,7 +1,18 @@
-- attributes("title") = "DojoShare - Create room"
-- attributes("headline") = "Create your room"
+-@val rooms: Iterable[String]
+-@val errorMessage: String = ""
 
+- attributes("title") = "DojoShare - Welcome!"
+- attributes("headline") = "Welcome to the slickest realtime group code-sharing tool DojoShare!"
+
+
+- if (!rooms.isEmpty)
+    p Current rooms
+
+    ul 
+        - for (room <- rooms)
+            li 
+                a(href="rooms/#{room}")= room
+#errorMessage
+    =errorMessage
 :markdown
     [Create a room](/createroom)
-    [Join a room](/joinroom)
-            

@@ -2,24 +2,22 @@ package com.balopat.dojoshare
 
 import org.scalatra._
 import scalate.ScalateSupport
+import scala.collection.immutable.List
 
 class DojoShareServlet extends ScalatraServlet with ScalateSupport {
-
-  
   
   def joinRoom(room: String) = {
     contentType="text/html"
     if (RoomEntries.exists(room)) 
          jade("room", "entries" -> RoomEntries.get(room),  "room" -> room)
        else 
-         jade("joinroom", "errorMessage" -> "Room not found!")
+         jade("index", "rooms" -> RoomEntries.rooms, "errorMessage" -> "Room not found!")
 
  }
 
-
   get("/") {
     contentType="text/html"
-    jade("index")
+    jade("index", "rooms" -> RoomEntries.rooms) 
   }
 
   post("/submitroom") {
@@ -29,34 +27,36 @@ class DojoShareServlet extends ScalatraServlet with ScalateSupport {
       RoomEntries.create(room)
       joinRoom(room)   
     }else {
-      jade("createroom", "errorMessage" -> "This room already exists, do you want to join?", "room" -> room)
+      jade("createroom", "errorMessage" -> "A room with this name already exists!", "room" -> room)
     }
   }
 
-  get("/createroom") {
-   contentType="text/html"
-   jade("createroom", "rooms" -> RoomEntries.rooms)
-  }
 
   get("/rooms/:room") {
     joinRoom(params("room"))   
   }
   
-  get("/room") {
-    redirect("/rooms/" + params("room"))
-  }
-
 
    post("/rooms/:room") {
-       val room = params("room") 
-       RoomEntries.update(room, new CodeSnippet(params("description"), params("code"), params("language"), System.currentTimeMillis)) 
-       joinRoom(room)
+      val room = params("room") 
+      if (RoomEntries.exists(room)) {  
+        RoomEntries.update(room, new CodeSnippet(params("description"), params("code"), params("language"), System.currentTimeMillis)) 
+        joinRoom(room)
+      } else {
+        contentType="text/html"
+        jade("index", "rooms" -> RoomEntries.rooms, "errorMessage" -> "Room not found!") 
+      }
    }
 
              
-  get("/rooms/:room/mine") {
+  get("/rooms/:room/codesnippet") {
     contentType="text/html"
-    jade("myroom", "room" -> params("room")) 
+    val room = params("room")    
+    if (RoomEntries.exists(room)) { 
+      jade("myroom", "room" -> room) 
+    } else {
+      jade("index", "rooms" -> RoomEntries.rooms, "errorMessage" -> "Room not found!")
+    }
   }
 
 

@@ -1,5 +1,5 @@
 package com.balopat.dojoshare
 
-case class CodeSnippet (desc: String, c: String, language: String, timestamp: Long) {
+case class CodeSnippet (description: String, code: String, language: String, timestamp: Long) {
 
 }
