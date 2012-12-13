@@ -1,4 +1,4 @@
-# Coding Room #
+# ShareTheCode #
 
 Coding Room is a tiny, super-lightweight application to share code in a syntax highlighted way within a room, on short sessions. 
 People join in a room (without registration) and post the newest version of their current practice code which the presenter can show on the screen. This way retrospectives can be more fruitful having the code up on the projected screen. 
@@ -6,7 +6,7 @@ People join in a room (without registration) and post the newest version of thei
 ## Build & Run ##
 
 ```sh
-$ cd dojo-share
+$ cd sharethecode
 $ ./sbt
 > container:start
 ```
@@ -20,6 +20,6 @@ Now open the site's [root page](http://localhost:8080/) in your browser.
 
 ## Heroku 
 
-[This is the link on Heroku](http://dojo-share.herokuapp.com/)
+[This is the link on Heroku](http://sharethecode.herokuapp.com/)
 
 That's it :) 
