@@ -40,7 +40,7 @@ class DojoShareServlet extends ScalatraServlet with ScalateSupport {
   post("/rooms/:room") {
       val room = params("room") 
       if (RoomEntries.exists(room)) {  
-        RoomEntries.update(room, new CodeSnippet(params("description"), params("code"), params("language"), System.currentTimeMillis)) 
+        RoomEntries.update(room, params("formtoken"),new CodeSnippet(params("description"), params("code"), params("language"), System.currentTimeMillis)) 
         joinRoom(room)
       } else {
         contentType="text/html"
@@ -53,7 +53,7 @@ class DojoShareServlet extends ScalatraServlet with ScalateSupport {
     contentType="text/html"
     val room = params("room")    
     if (RoomEntries.exists(room)) { 
-      jade("codesnippet", "room" -> room) 
+      jade("codesnippet",  "formtoken" -> java.util.UUID.randomUUID.toString,  "room" -> room) 
     } else {
       jade("index", "rooms" -> RoomEntries.rooms, "errorMessage" -> "Room not found!")
     }
