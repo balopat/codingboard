@@ -4974,6 +4974,9 @@ input[type="submit"].btn.btn-mini {
   font-size: 17.5px;
 }
 
+.clickable {
+    cursor: pointer;
+}
 .pagination-large ul > li:first-child > a,
 .pagination-large ul > li:first-child > span {
   -webkit-border-bottom-left-radius: 6px;

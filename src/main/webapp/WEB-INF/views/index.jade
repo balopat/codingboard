@@ -10,7 +10,7 @@ p to the slickest realtime group code-sharing tool DojoShare!
 
     table(class="table table-hover striped") 
         - for (room <- rooms)
-            tr
+            tr(class="clickable" onclick="window.location='/rooms/#{room}';")
                 td
                     a(href="/rooms/#{room}")= room
 #errorMessage
