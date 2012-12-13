@@ -8,6 +8,6 @@ div
             label Name your room:
             input(value="bla" name="room" id="room")
         div 
-            label #{errorMessage}
+            p(class="text-error")=errorMessage
         div 
             button(type="submit") Create Your Room

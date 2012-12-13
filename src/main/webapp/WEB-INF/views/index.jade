@@ -2,17 +2,18 @@
 -@val errorMessage: String = ""
 
 - attributes("title") = "DojoShare - Welcome!"
-- attributes("headline") = "Welcome to the slickest realtime group code-sharing tool DojoShare!"
+- attributes("headline") = "Welcome!"
 
-
+p to the slickest realtime group code-sharing tool DojoShare!
 - if (!rooms.isEmpty)
     p Current rooms
 
-    ul 
+    table(class="table table-hover striped") 
         - for (room <- rooms)
-            li 
-                a(href="rooms/#{room}")= room
+            tr
+                td
+                    a(href="/rooms/#{room}")= room
 #errorMessage
-    =errorMessage
+    p(class="text-error")=errorMessage
 :markdown
     [Create a room](/createroom)

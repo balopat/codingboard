@@ -6,10 +6,19 @@
 html
     head
         title= title
-        link(href="/css/design.css" rel="stylesheet" type="text/css")/
+        link(href="/css/bootstrap.css" rel="stylesheet" media="screen" type="text/css")/
     body
-        h1 
-            a(href="/") DojoShare
-        #content
-        h1= headline
-        != body
+        div(class="container")
+
+            div(class="row")
+                div(class="span8 offset2")
+                    h1 
+                        a(href="/") DojoShare
+            
+            div(class="row")
+                div(class="span8 offset2")
+                    #content
+                    h1= headline
+                    != body
+                
+        <script src="/js/bootstrap.min.js"></script>
