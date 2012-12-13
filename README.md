@@ -1,11 +1,7 @@
-# Dojo Share #
+# Coding Room #
 
-Dojo Share is a tiny, super-lightweight application to share code in a syntax highlighted way within a room, on short sessions. 
+Coding Room is a tiny, super-lightweight application to share code in a syntax highlighted way within a room, on short sessions. 
 People join in a room (without registration) and post the newest version of their current practice code which the presenter can show on the screen. This way retrospectives can be more fruitful having the code up on the projected screen. 
-
-## Requirements ##
-
-Install [sbt](http://www.scala-sbt.org/)
 
 ## Build & Run ##
 
@@ -14,6 +10,7 @@ $ cd dojo-share
 $ ./sbt
 > container:start
 ```
+First time prepare for that the maven downloads can take up to 10-15 minutes.
 
 Now open the site's [root page](http://localhost:8080/) in your browser.
 
