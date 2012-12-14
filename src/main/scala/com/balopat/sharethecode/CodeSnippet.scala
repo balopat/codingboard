@@ -1,4 +1,4 @@
-package com.balopat.dojoshare
+package com.balopat.sharethecode
 import com.ocpsoft.pretty.time.PrettyTime
 
 import org.json4s.jackson.JsonMethods._

@@ -1,4 +1,4 @@
-package com.balopat.dojoshare 
+package com.balopat.sharethecode 
 
 import scala.collection.mutable.Map
 import scala.collection.immutable.List

@@ -1,4 +1,4 @@
-import com.balopat.dojoshare._
+import com.balopat.sharethecode._
 import org.scalatra._
 import javax.servlet.ServletContext
 

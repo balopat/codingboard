@@ -10,7 +10,7 @@ object JettyLauncher {
     val context = new WebAppContext()
     context setContextPath "/"
     context.setResourceBase("src/main/webapp")
-    context.addServlet(classOf[com.balopat.dojoshare.ShareTheCodeServlet], "/*")
+    context.addServlet(classOf[com.balopat.sharethecode.ShareTheCodeServlet], "/*")
     context.addServlet(classOf[DefaultServlet], "/")
 
     server.setHandler(context)

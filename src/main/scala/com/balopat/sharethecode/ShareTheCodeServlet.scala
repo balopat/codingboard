@@ -1,4 +1,4 @@
-package com.balopat.dojoshare
+package com.balopat.sharethecode
 
 import org.scalatra._
 import scalate.ScalateSupport
