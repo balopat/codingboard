@@ -3,9 +3,19 @@ package com.balopat.dojoshare
 import org.scalatra._
 import scalate.ScalateSupport
 import scala.collection.immutable.List
+import org.scalatra.atmosphere._
+import org.scalatra.json.{JValueResult, JacksonJsonSupport}
+import org.json4s._
+import JsonDSL._
+import org.atmosphere.cpr.MetaBroadcaster
 
-class DojoShareServlet extends ScalatraServlet with ScalateSupport {
-  
+class DojoShareServlet extends ScalatraServlet
+  with ScalateSupport with JValueResult 
+  with JacksonJsonSupport with SessionSupport 
+  with AtmosphereSupport {
+ 
+implicit protected val jsonFormats: Formats = DefaultFormats
+
   def joinRoom(room: String) = {
     contentType="text/html"
     if (RoomEntries.exists(room)) 
@@ -37,10 +47,12 @@ class DojoShareServlet extends ScalatraServlet with ScalateSupport {
   }
   
 
-  post("/rooms/:room") {
+  post("/rooms/:room/post") {
       val room = params("room") 
       if (RoomEntries.exists(room)) {  
-        RoomEntries.update(room, params("formtoken"),new CodeSnippet(params("description"), params("code"), params("language"), System.currentTimeMillis)) 
+        val codeSnippet = new CodeSnippet(params("description"), params("code"), params("language"), System.currentTimeMillis)
+        RoomEntries.update(room, params("formtoken"),codeSnippet) 
+        MetaBroadcaster.getDefault().broadcastTo("*", codeSnippet.toJSON)
         joinRoom(room)
       } else {
         contentType="text/html"
@@ -59,7 +71,13 @@ class DojoShareServlet extends ScalatraServlet with ScalateSupport {
     }
   }
 
-
+  atmosphere("/roomgateway") {
+      new AtmosphereClient {
+            def receive = {
+                            case Connected => println("someone connected")
+                      }
+                    }
+                        }
   notFound {
     // remove content type in case it was set through an action
     contentType = null

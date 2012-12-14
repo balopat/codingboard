@@ -35,9 +35,9 @@ link(href="/css/shCore.css" rel="stylesheet" type="text/css")/
 link(href="/css/shThemeMidnight.css" rel="stylesheet" type="text/css")/
 
 p
-    ul
+    div#codesnippets
         - for (codeSnippet <- entries.reverse)
-            li
+            div
                 div 
                     b= codeSnippet.description
                 div
@@ -48,3 +48,7 @@ p
 
 :javascript
     SyntaxHighlighter.all()
+
+<script src="/js/jquery-1.7.2.js"></script>
+<script src="/js/jquery-atmosphere.js"></script>
+<script src="/js/application.js"></script>

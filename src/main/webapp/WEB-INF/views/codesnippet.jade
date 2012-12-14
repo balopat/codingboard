@@ -4,7 +4,7 @@
 - attributes("headline") = ""
 
 div
-    form(method="POST" action="/rooms/#{room}")
+    form(method="POST" action="/rooms/#{room}/post")
         fieldset
             legend Share your code
             input(type="hidden" name="formtoken" value="#{formtoken}" id="formtoken")
@@ -39,3 +39,6 @@ div
                     option(value="xml") XML
             div 
                 button(type="submit") Share your code
+<script src="/js/jquery-1.7.2.js"></script>        
+:javascript
+    $('#description').focus()

@@ -10,6 +10,6 @@
     can be configured in Scala code there.
   -->
   <listener>
-    <listener-class>org.scalatra.servlet.ScalatraListener</listener-class>
+    <listener-class>org.scalatra.atmosphere.ScalatraAtmosphereListener</listener-class>
   </listener>
 </web-app>

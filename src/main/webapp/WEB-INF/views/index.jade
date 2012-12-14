@@ -5,15 +5,27 @@
 - attributes("headline") = "Welcome!"
 
 p to the slickest realtime group code-sharing tool DojoShare!
+#errorMessage
+    p(class="text-error")=errorMessage
+    button(class=".btn-large" onclick="window.location='/createroom'") Create a room!
+
 - if (!rooms.isEmpty)
-    p Current rooms
+    h2 Current rooms
 
     table(class="table table-hover striped") 
         - for (room <- rooms)
             tr(class="clickable" onclick="window.location='/rooms/#{room}';")
                 td
                     a(href="/rooms/#{room}")= room
-#errorMessage
-    p(class="text-error")=errorMessage
-:markdown
-    [Create a room](/createroom)
+
+    div    
+        h2
+            a(name="about") About
+        p This app is the tool for your next hands-on sessions
+        
+        h2 
+            a(name="contact") Contact 
+        p
+            a(href="http://about.me/balintpato") about.me
+
+    

@@ -5,9 +5,12 @@
 div
     form(method="POST" action="submitroom")
         div 
-            label Name your room:
-            input(value="bla" name="room" id="room")
+            input(placeholder="Name your room..." name="room" id="room")
         div 
             p(class="text-error")=errorMessage
         div 
             button(type="submit") Create Your Room
+
+<script src="/js/jquery-1.7.2.js"></script>        
+:javascript
+    $('#room').focus()
