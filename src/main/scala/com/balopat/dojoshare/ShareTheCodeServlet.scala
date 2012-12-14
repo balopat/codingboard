@@ -9,7 +9,7 @@ import org.json4s._
 import JsonDSL._
 import org.atmosphere.cpr.MetaBroadcaster
 
-class DojoShareServlet extends ScalatraServlet
+class ShareTheCodeServlet extends ScalatraServlet
   with ScalateSupport with JValueResult 
   with JacksonJsonSupport with SessionSupport 
   with AtmosphereSupport {

@@ -66,12 +66,6 @@ $(function() {
 
   };
 
-  /**
-   * When the connection closes, run this:
-   */
-  request.onClose = function(rs) {
-    loggedIn = false;
-  };
 
   /**
    * Run this when a connection error occurs.

@@ -1,7 +1,6 @@
 -@ val room: String
 -@ val entries: List[com.balopat.dojoshare.CodeSnippet]
-- attributes("title") = "DojoShare - " + room
-- attributes("headline") = "Room: " + room
+- attributes("title") = "ShareTheCode - " + room
 
 <script type="text/javascript" src="/js/shCore.js"></script>
 <script type="text/javascript" src="/js/shBrushAppleScript.js"></script>
@@ -34,17 +33,18 @@
 link(href="/css/shCore.css" rel="stylesheet" type="text/css")/
 link(href="/css/shThemeMidnight.css" rel="stylesheet" type="text/css")/
 
-p
-    div#codesnippets
-        - for (codeSnippet <- entries.reverse)
+h2= room
+button(class=".ben-large" onclick="window.location='/rooms/#{room}/codesnippet'") post a code snippet
+
+div#codesnippets
+    - for (codeSnippet <- entries.reverse)
+        div
+            div 
+                b= codeSnippet.description
             div
-                div 
-                    b= codeSnippet.description
-                div
-                    pre(class="brush: #{codeSnippet.language}")= codeSnippet.code
-                div 
-                    i= codeSnippet.formattedTime
-    a(href="/rooms/#{room}/codesnippet") post a code snippet
+                pre(class="brush: #{codeSnippet.language}")= codeSnippet.code
+            div 
+                i= codeSnippet.formattedTime
 
 :javascript
     SyntaxHighlighter.all()
