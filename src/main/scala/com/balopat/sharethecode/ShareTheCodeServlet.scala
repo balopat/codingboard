@@ -16,10 +16,10 @@ class ShareTheCodeServlet extends ScalatraServlet
  
 implicit protected val jsonFormats: Formats = DefaultFormats
 
-  def joinRoom(room: String) = {
+  def joinRoom(room: String, extraAttributes: (String, Any)*) = {
     contentType="text/html"
     if (RoomEntries.exists(room)) 
-         jade("room", "entries" -> RoomEntries.get(room),  "room" -> room)
+         jade("room", ("room" -> room ::  "entries" -> RoomEntries.get(room) :: extraAttributes.toList).toArray: _*  )
        else 
          jade("index", "rooms" -> RoomEntries.rooms, "errorMessage" -> "Room not found!")
 
@@ -49,11 +49,13 @@ implicit protected val jsonFormats: Formats = DefaultFormats
 
   post("/rooms/:room/post") {
       val room = params("room") 
+      val formToken = params("formtoken")
       if (RoomEntries.exists(room)) {  
         val codeSnippet = new CodeSnippet(params("description"), params("code"), params("language"), System.currentTimeMillis)
-        RoomEntries.update(room, params("formtoken"),codeSnippet) 
-        MetaBroadcaster.getDefault().broadcastTo("*", codeSnippet.toJSON)
-        joinRoom(room)
+        RoomEntries.update(room,formToken,codeSnippet) 
+        println("broadcast")
+//        MetaBroadcaster.getDefault().broadcastTo("*", compact(render( "codesnippetPosted" -> (codeSnippet.toJSON ~ ("formtoken"->formToken)))) )
+        joinRoom(room, "lastPostUUId"->formToken)
       } else {
         contentType="text/html"
         jade("index", "rooms" -> RoomEntries.rooms, "errorMessage" -> "Room not found!") 

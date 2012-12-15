@@ -4,7 +4,7 @@ $(function() {
   var codesnippets = $("#codesnippets");
   var socket = $.atmosphere;
   var subSocket;
-  var transport = 'websocket';
+  var transport = 'ssp';
 
 
 
@@ -26,6 +26,10 @@ $(function() {
    */
   request.onOpen = function(response) {
     transport = response.transport;
+    if (transport == 'local') {
+        alert('no I won`t open a new client');
+        request.close();
+    }
   };
 
 
@@ -43,18 +47,23 @@ $(function() {
   request.onMessage = function(rs) {
     var message = rs.responseBody;
     try {
-      var json = jQuery.parseJSON(message).codeSnippet;
+      var json = jQuery.parseJSON(message);
+      if (json.codesnippetPosted.formtoken = lastPostUUId) {
+          alert('yey!')
+              return;
+      }
       console.log("got a message")
       console.log(json)
+      var codesnippet = json.codesnippet
       codesnippets.prepend("<div> " +
                "<div>" +
-               " <b>" + json.description  + " </b>" +
+               " <b>" + codesnippet.description  + " </b>" +
                " </div>" +
                " <div>" +
-               "   <pre class=\"brush: " + json.language + " \">"+json.code+"</pre>" +
+               "   <pre class=\"brush: " + codesnippet.language + " \">"+codesnippet.code+"</pre>" +
                "   </div>" +
                "   <div>" +
-               "     <i>"+json.timestamp+"</i>" +
+               "     <i>"+codesnippet.timestamp+"</i>" +
                "     </div>" +
                "     </div>")
       SyntaxHighlighter.all()
