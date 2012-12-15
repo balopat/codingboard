@@ -20,7 +20,7 @@ function updateIfRequired(){
             "     <i>"+codeSnippet.timestamp+"</i>" +
             "     </div>" +
             "     </div>");
-            SyntaxHighlighter.all();
+            SyntaxHighlighter.highlight();
             lastPostUUId = codeSnippet.id;
         }else {
             console.log('no update');
