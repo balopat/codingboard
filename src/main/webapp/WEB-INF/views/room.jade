@@ -36,7 +36,7 @@ link(href="/css/shThemeMidnight.css" rel="stylesheet" type="text/css")/
 h2= room
 button(class=".ben-large" onclick="window.location='/rooms/#{room}/codesnippet'") post a code snippet
 
-div#codesnippets
+div#codeSnippets
     - for (codeSnippet <- room.codeSnippets.reverse)
         div
             div 

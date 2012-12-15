@@ -1,11 +1,27 @@
 function updateIfRequired(){
     $.ajax( {
         url: "/rooms/" + room + "/refresh",
-        lastPosted: lastPostUUId,
+        data: {
+            lastPostUUId: lastPostUUId
+        },
         type: "POST"
     } ).done (function(data){
-        if (data.codesnippetPosted) {
-            console.log('we have update!');
+        var codeSnippets = $('#codeSnippets');
+        var codeSnippet = $.parseJSON(data).codeSnippet;
+        if (codeSnippet) {
+            codeSnippets.prepend("<div> " +
+            "<div>" +
+            " <b>" + codeSnippet.description  + " </b>" +
+            " </div>" +
+            " <div>" +
+            "   <pre class=\"brush: " + codeSnippet.language + " \">"+codeSnippet.code+"</pre>" +
+            "   </div>" +
+            "   <div>" +
+            "     <i>"+codeSnippet.timestamp+"</i>" +
+            "     </div>" +
+            "     </div>");
+            SyntaxHighlighter.all();
+            lastPostUUId = codeSnippet.id;
         }else {
             console.log('no update');
         }

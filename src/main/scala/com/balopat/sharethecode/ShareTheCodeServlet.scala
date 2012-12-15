@@ -12,7 +12,7 @@ import org.atmosphere.cpr.MetaBroadcaster
 class ShareTheCodeServlet extends ScalatraServlet
   with ScalateSupport with JValueResult 
   with JacksonJsonSupport with SessionSupport 
-  with AtmosphereSupport {
+  {
  
 implicit protected val jsonFormats: Formats = DefaultFormats
 
@@ -62,7 +62,14 @@ implicit protected val jsonFormats: Formats = DefaultFormats
    }
 
   post("/rooms/:room/refresh") {
-    compact(render("refreshed"->"nope"))
+    val codeSnippets = Rooms.get(params("room")).codeSnippets
+    if ( (!codeSnippets.isEmpty) && (!codeSnippets.last.id.equals(params("lastPostUUId"))))
+    {
+        //TODO get all since the UUID, for now it's just the last
+        compact(render(codeSnippets.last.toJSON))
+    }else{
+      compact(render("refresh"->"norefresh"))
+    }  
   }
              
   get("/rooms/:room/codesnippet") {
