@@ -1,5 +1,4 @@
--@ val room: String
--@ val entries: List[com.balopat.sharethecode.CodeSnippet]
+-@ val room: com.balopat.sharethecode.Room 
 -@ val lastPostUUId: String ="" 
 - attributes("title") = "ShareTheCode - " + room
 
@@ -38,7 +37,7 @@ h2= room
 button(class=".ben-large" onclick="window.location='/rooms/#{room}/codesnippet'") post a code snippet
 
 div#codesnippets
-    - for (codeSnippet <- entries.reverse)
+    - for (codeSnippet <- room.codeSnippets.reverse)
         div
             div 
                 b= codeSnippet.description
@@ -49,9 +48,9 @@ div#codesnippets
 
 <script type="text/javascript">
 | SyntaxHighlighter.all();
-| var lastPostUUId = '#{lastPostUUId}'
-| </script>
+| var lastPostUUId = '#{lastPostUUId}';
+| var room = '#{room.room}';
+|</script>
 <script src="/js/jquery-1.7.2.js"></script>
 <script src="/js/jquery-atmosphere.js"></script>
-
 <script src="/js/application.js"></script>

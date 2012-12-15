@@ -18,23 +18,23 @@ implicit protected val jsonFormats: Formats = DefaultFormats
 
   def joinRoom(room: String, extraAttributes: (String, Any)*) = {
     contentType="text/html"
-    if (RoomEntries.exists(room)) 
-         jade("room", ("room" -> room ::  "entries" -> RoomEntries.get(room) :: extraAttributes.toList).toArray: _*  )
+    if (Rooms.exists(room)) 
+         jade("room", ("room" -> Rooms.get(room) :: extraAttributes.toList).toArray: _*  )
        else 
-         jade("index", "rooms" -> RoomEntries.rooms, "errorMessage" -> "Room not found!")
+         jade("index", "rooms" -> Rooms.list, "errorMessage" -> "Room not found!")
 
  }
 
   get("/") {
     contentType="text/html"
-    jade("index", "rooms" -> RoomEntries.rooms) 
+    jade("index", "rooms" -> Rooms.list) 
   }
 
   post("/submitroom") {
     contentType="text/html"
     val room = params("room")
-    if (!RoomEntries.exists(room)) { 
-      RoomEntries.create(room)
+    if (!Rooms.exists(room)) { 
+      Rooms.create(room)
       joinRoom(room)   
     }else {
       jade("createroom", "errorMessage" -> "A room with this name already exists!", "room" -> room)
@@ -50,36 +50,31 @@ implicit protected val jsonFormats: Formats = DefaultFormats
   post("/rooms/:room/post") {
       val room = params("room") 
       val formToken = params("formtoken")
-      if (RoomEntries.exists(room)) {  
-        val codeSnippet = new CodeSnippet(params("description"), params("code"), params("language"), System.currentTimeMillis)
-        RoomEntries.update(room,formToken,codeSnippet) 
+      if (Rooms.exists(room)) {  
+        val codeSnippet = new CodeSnippet(formToken, params("description"), params("code"), params("language"), System.currentTimeMillis)
+        Rooms.update(room, codeSnippet) 
         println("broadcast")
-//        MetaBroadcaster.getDefault().broadcastTo("*", compact(render( "codesnippetPosted" -> (codeSnippet.toJSON ~ ("formtoken"->formToken)))) )
         joinRoom(room, "lastPostUUId"->formToken)
       } else {
         contentType="text/html"
-        jade("index", "rooms" -> RoomEntries.rooms, "errorMessage" -> "Room not found!") 
+        jade("index", "rooms" -> Rooms.list, "errorMessage" -> "Room not found!") 
       }
    }
 
+  post("/rooms/:room/refresh") {
+    compact(render("refreshed"->"nope"))
+  }
              
   get("/rooms/:room/codesnippet") {
     contentType="text/html"
     val room = params("room")    
-    if (RoomEntries.exists(room)) { 
+    if (Rooms.exists(room)) { 
       jade("codesnippet",  "formtoken" -> java.util.UUID.randomUUID.toString,  "room" -> room) 
     } else {
-      jade("index", "rooms" -> RoomEntries.rooms, "errorMessage" -> "Room not found!")
+      jade("index", "rooms" -> Rooms.list, "errorMessage" -> "Room not found!")
     }
   }
 
-  atmosphere("/roomgateway") {
-      new AtmosphereClient {
-            def receive = {
-                            case Connected => println("someone connected")
-                      }
-                    }
-                        }
   notFound {
     // remove content type in case it was set through an action
     contentType = null
