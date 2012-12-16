@@ -55,7 +55,7 @@ implicit protected val jsonFormats: Formats = DefaultFormats
       val formToken = params("formtoken")
       if (Rooms.exists(room)) {
         val codeSnippet = new CodeSnippet(formToken, params("description"), params("code"), params("language"), System.currentTimeMillis)
-        Rooms.update(room, codeSnippet)
+        Rooms.get(room) += codeSnippet
         joinRoom(room )
       } else {
         contentType="text/html"

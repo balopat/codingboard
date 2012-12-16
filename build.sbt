@@ -12,6 +12,8 @@ scalaVersion := "2.9.2"
 
 seq(webSettings :_*)
 
+seq(ScctPlugin.instrumentSettings : _*)
+
 classpathTypes ~= (_ + "orbit")
 
 libraryDependencies ++= Seq(

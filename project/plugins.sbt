@@ -7,3 +7,9 @@ libraryDependencies <+= sbtVersion(v => v match {
 })
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-start-script" % "0.6.0")
+
+resolvers += Classpaths.typesafeResolver
+
+resolvers += "scct-github-repository" at "http://mtkopone.github.com/scct/maven-repo"
+
+addSbtPlugin("reaktor" % "sbt-scct" % "0.2-SNAPSHOT")
