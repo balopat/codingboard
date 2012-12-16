@@ -1,5 +1,4 @@
 -@ val room: com.balopat.sharethecode.Room 
--@ val lastPostUUId: String ="" 
 - attributes("title") = "ShareTheCode - " + room
 
 <script type="text/javascript" src="/js/shCore.js"></script>
@@ -48,7 +47,7 @@ div#codeSnippets
 
 <script type="text/javascript">
 | SyntaxHighlighter.all();
-| var lastPostUUId = '#{lastPostUUId}';
+| var lastCodeSnippetId = '#{room.lastCodeSnippetId}';
 | var room = '#{room.room}';
 |</script>
 <script src="/js/jquery-1.7.2.js"></script>

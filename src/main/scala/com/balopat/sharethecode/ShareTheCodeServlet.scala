@@ -19,7 +19,7 @@ implicit protected val jsonFormats: Formats = DefaultFormats
   def joinRoom(room: String, extraAttributes: (String, Any)*) = {
     contentType="text/html"
     if (Rooms.exists(room)) 
-         jade("room", ("room" -> Rooms.get(room) :: extraAttributes.toList).toArray: _*  )
+      jade("room", ("room" -> Rooms.get(room) :: extraAttributes.toList).toArray: _*  )
        else 
          jade("index", "rooms" -> Rooms.list, "errorMessage" -> "Room not found!")
 
@@ -54,7 +54,7 @@ implicit protected val jsonFormats: Formats = DefaultFormats
         val codeSnippet = new CodeSnippet(formToken, params("description"), params("code"), params("language"), System.currentTimeMillis)
         Rooms.update(room, codeSnippet) 
         println("broadcast")
-        joinRoom(room, "lastPostUUId"->formToken)
+        joinRoom(room )
       } else {
         contentType="text/html"
         jade("index", "rooms" -> Rooms.list, "errorMessage" -> "Room not found!") 
@@ -63,7 +63,7 @@ implicit protected val jsonFormats: Formats = DefaultFormats
 
   post("/rooms/:room/refresh") {
     val codeSnippets = Rooms.get(params("room")).codeSnippets
-    if ( (!codeSnippets.isEmpty) && (!codeSnippets.last.id.equals(params("lastPostUUId"))))
+    if ( (!codeSnippets.isEmpty) && (!codeSnippets.last.id.equals(params("lastCodeSnippetId"))))
     {
         //TODO get all since the UUID, for now it's just the last
         compact(render(codeSnippets.last.toJSON))

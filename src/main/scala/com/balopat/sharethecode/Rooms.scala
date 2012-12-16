@@ -39,4 +39,5 @@ case class Room (room: String) {
      this
   }
   override def toString = room
+  def lastCodeSnippetId = if (codeSnippets.isEmpty)  "" else codeSnippets.last.id
 }

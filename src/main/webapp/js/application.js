@@ -2,7 +2,7 @@ function updateIfRequired(){
     $.ajax( {
         url: "/rooms/" + room + "/refresh",
         data: {
-            lastPostUUId: lastPostUUId
+            lastCodeSnippetId: lastCodeSnippetId
         },
         type: "POST"
     } ).done (function(data){
@@ -21,7 +21,7 @@ function updateIfRequired(){
             "     </div>" +
             "     </div>");
             SyntaxHighlighter.highlight();
-            lastPostUUId = codeSnippet.id;
+            lastCodeSnippetId = codeSnippet.id;
         }else {
             console.log('no update');
         }
