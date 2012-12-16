@@ -4,13 +4,13 @@
 
 div
     form(method="POST" action="submitroom")
-        div 
+        div
             input(placeholder="Name your room..." name="room" id="room")
-        div 
+        div
             p(class="text-error")=errorMessage
-        div 
-            button(type="submit") Create Your Room
+        div
+            button(class="btn btn-info btn-large" type="submit") Create Your Room
 
-<script src="/js/jquery-1.7.2.js"></script>        
+<script src="/js/jquery-1.7.2.js"></script>
 :javascript
     $('#room').focus()

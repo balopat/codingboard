@@ -13,5 +13,4 @@ case class CodeSnippet (id: String, description: String, code: String, language:
                     ("language" -> language) ~
                     ("timestamp" -> formattedTime)
                   )
-  
 }

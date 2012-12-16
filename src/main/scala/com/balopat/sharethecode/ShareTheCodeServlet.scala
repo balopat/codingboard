@@ -10,32 +10,32 @@ import JsonDSL._
 import org.atmosphere.cpr.MetaBroadcaster
 
 class ShareTheCodeServlet extends ScalatraServlet
-  with ScalateSupport with JValueResult 
-  with JacksonJsonSupport with SessionSupport 
+  with ScalateSupport with JValueResult
+  with JacksonJsonSupport with SessionSupport
   {
- 
+
 implicit protected val jsonFormats: Formats = DefaultFormats
 
   def joinRoom(room: String, extraAttributes: (String, Any)*) = {
     contentType="text/html"
-    if (Rooms.exists(room)) 
+    if (Rooms.exists(room))
       jade("room", ("room" -> Rooms.get(room) :: extraAttributes.toList).toArray: _*  )
-       else 
+       else
          jade("index", "rooms" -> Rooms.list, "errorMessage" -> "Room not found!")
 
  }
 
   get("/") {
     contentType="text/html"
-    jade("index", "rooms" -> Rooms.list) 
+    jade("index", "rooms" -> Rooms.list)
   }
 
   post("/submitroom") {
     contentType="text/html"
     val room = params("room")
-    if (!Rooms.exists(room)) { 
+    if (!Rooms.exists(room)) {
       Rooms.create(room)
-      joinRoom(room)   
+      joinRoom(room)
     }else {
       jade("createroom", "errorMessage" -> "A room with this name already exists!", "room" -> room)
     }
@@ -43,21 +43,23 @@ implicit protected val jsonFormats: Formats = DefaultFormats
 
 
   get("/rooms/:room") {
-    joinRoom(params("room"))   
+    joinRoom(params("room"))
   }
-  
+
+  get("/rooms/:room/post") {
+    joinRoom(params("room"))
+  }
 
   post("/rooms/:room/post") {
-      val room = params("room") 
+      val room = params("room")
       val formToken = params("formtoken")
-      if (Rooms.exists(room)) {  
+      if (Rooms.exists(room)) {
         val codeSnippet = new CodeSnippet(formToken, params("description"), params("code"), params("language"), System.currentTimeMillis)
-        Rooms.update(room, codeSnippet) 
-        println("broadcast")
+        Rooms.update(room, codeSnippet)
         joinRoom(room )
       } else {
         contentType="text/html"
-        jade("index", "rooms" -> Rooms.list, "errorMessage" -> "Room not found!") 
+        jade("index", "rooms" -> Rooms.list, "errorMessage" -> "Room not found!")
       }
    }
 
@@ -69,14 +71,14 @@ implicit protected val jsonFormats: Formats = DefaultFormats
         compact(render(codeSnippets.last.toJSON))
     }else{
       compact(render("refresh"->"norefresh"))
-    }  
+    }
   }
-             
+
   get("/rooms/:room/codesnippet") {
     contentType="text/html"
-    val room = params("room")    
-    if (Rooms.exists(room)) { 
-      jade("codesnippet",  "formtoken" -> java.util.UUID.randomUUID.toString,  "room" -> room) 
+    val room = params("room")
+    if (Rooms.exists(room)) {
+      jade("codesnippet",  "formtoken" -> java.util.UUID.randomUUID.toString,  "room" -> room)
     } else {
       jade("index", "rooms" -> Rooms.list, "errorMessage" -> "Room not found!")
     }

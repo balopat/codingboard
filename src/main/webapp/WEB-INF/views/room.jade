@@ -1,4 +1,4 @@
--@ val room: com.balopat.sharethecode.Room 
+-@ val room: com.balopat.sharethecode.Room
 - attributes("title") = "ShareTheCode - " + room
 
 <script type="text/javascript" src="/js/shCore.js"></script>
@@ -33,16 +33,16 @@ link(href="/css/shCore.css" rel="stylesheet" type="text/css")/
 link(href="/css/shThemeMidnight.css" rel="stylesheet" type="text/css")/
 
 h2= room
-button(class=".ben-large" onclick="window.location='/rooms/#{room}/codesnippet'") post a code snippet
+button(class="btn btn-info btn-large" onclick="window.location='/rooms/#{room}/codesnippet'") post a code snippet
 
 div#codeSnippets
     - for (codeSnippet <- room.codeSnippets.reverse)
         div
-            div 
+            div
                 b= codeSnippet.description
             div
                 pre(class="brush: #{codeSnippet.language}")= codeSnippet.code
-            div 
+            div
                 i= codeSnippet.formattedTime
 
 <script type="text/javascript">

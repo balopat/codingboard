@@ -7,7 +7,7 @@ html
     head
         title= title
         link(href="/css/bootstrap.css" rel="stylesheet" media="screen" type="text/css")/
-    body(style="padding-top: 100px;")
+    body(style="padding-top: 60px;")
         div(class="navbar navbar-inverse navbar-fixed-top")
             div(class="navbar-inner")
                 div(class="container")
@@ -16,14 +16,14 @@ html
                         span(class="icon-bar")
                         span(class="icon-bar")
                     a(class="brand" href="/") Share the code
-                div(class="nav-collapse collapse")
-                    ul(class="nav")
-                        li(class="active")
-                            a(href="/") Rooms
-                        li 
-                            a(href="/#about") About
-                        li
-                            a(href="/#contact") Contact
+                    div(class="nav-collapse collapse")
+                        ul(class="nav")
+                            li(class="active")
+                                a(href="/") Rooms
+                            li
+                                a(href="/#about") About
+                            li
+                                a(href="/#contact") Contact
 
         div(class="container")
 
@@ -31,9 +31,7 @@ html
                 div(class="span8 offset2")
                     #content
                     != body
-                
         <script src="/js/bootstrap.min.js"></script>
-        
         :javascript
               var _gaq = _gaq || [];
              _gaq.push(['_setAccount', 'UA-37015481-1']);

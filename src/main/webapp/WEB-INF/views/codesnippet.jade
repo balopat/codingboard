@@ -7,7 +7,7 @@ div
         fieldset
             legend Share your code
             input(type="hidden" name="formtoken" value="#{formtoken}" id="formtoken")
-            div 
+            div
                 input(placeholder="Description..." name="description" id="description")
             div
                 textarea(value="bla" name="code" id="code" rows="20" width="100%")
@@ -24,20 +24,20 @@ div
                     option(value="erl") Erlang
                     option(value="groovy") Groovy
                     option(value="js") JavaScript
-                    option(value="java") Java   
-                    option(value="jfx") JavaFX  
+                    option(value="java") Java
+                    option(value="jfx") JavaFX
                     option(value="perl") Perl
-                    option(value="php") PHP 
-                    option(value="plain") Plain Text    
-                    option(value="ps") PowerShell   
-                    option(value="py") Python   
-                    option(value="rails") Ruby  
-                    option(value="scala") Scala 
+                    option(value="php") PHP
+                    option(value="plain") Plain Text
+                    option(value="ps") PowerShell
+                    option(value="py") Python
+                    option(value="rails") Ruby
+                    option(value="scala") Scala
                     option(value="sql") SQL
                     option(value="vb") Visual Basic
                     option(value="xml") XML
-            div 
-                button(type="submit") Share your code
-<script src="/js/jquery-1.7.2.js"></script>        
+            div
+                button(class="btn btn-info btn-large" type="submit") Share your code
+<script src="/js/jquery-1.7.2.js"></script>
 :javascript
     $('#description').focus()
