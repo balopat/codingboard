@@ -33,7 +33,7 @@ link(href="/css/shCore.css" rel="stylesheet" type="text/css")/
 link(href="/css/shThemeMidnight.css" rel="stylesheet" type="text/css")/
 
 h2= room
-button(class="btn btn-info btn-large" onclick="window.location='/rooms/#{room}/codesnippet'") post a code snippet
+button(class="btn btn-info btn-large" onclick="window.location='/rooms/#{room}/codesnippet'") share a code snippet
 
 div#codeSnippets
     - for (codeSnippet <- room.codeSnippets.reverse)
@@ -41,7 +41,7 @@ div#codeSnippets
             div
                 b= codeSnippet.description
             div
-                pre(class="brush: #{codeSnippet.language}")= codeSnippet.code
+                pre(class="brush: #{codeSnippet.language}")= "\n" + codeSnippet.code
             div
                 i= codeSnippet.formattedTime
 
