@@ -11,6 +11,6 @@ class Scalatra extends LifeCycle {
   override def init(context: ServletContext) {
 
     // Mount one or more servlets
-    context.mount(new ShareTheCodeServlet, "/*")
+    context.mount(new CodingBoardServlet(CodingBoards.instance), "/*")
   }
 }

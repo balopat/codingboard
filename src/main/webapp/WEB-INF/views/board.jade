@@ -1,5 +1,5 @@
--@ val room: com.balopat.sharethecode.Room
-- attributes("title") = "ShareTheCode - " + room
+-@ val board: com.balopat.sharethecode.CodingBoard
+- attributes("title") = "CodingBoard - " + board
 
 <script type="text/javascript" src="/js/shCore.js"></script>
 <script type="text/javascript" src="/js/shBrushAppleScript.js"></script>
@@ -32,23 +32,27 @@
 link(href="/css/shCore.css" rel="stylesheet" type="text/css")/
 link(href="/css/shThemeMidnight.css" rel="stylesheet" type="text/css")/
 
-h2= room
-button(class="btn btn-info btn-large" onclick="window.location='/rooms/#{room}/codesnippet'") share a code snippet
+div(class="container")
+    div(class="row span8")
+        h2= board
+        br
+    div(class="row span8 offset2")
+        button(class="btn btn-info btn-large" onclick="window.location='/boards/#{board}/codesnippet'") write a codesnippet on the board
 
-div#codeSnippets
-    - for (codeSnippet <- room.codeSnippets.reverse)
-        div
+    div(class="row span8 " id="codeSnippets")
+        - for (codeSnippet <- board.codeSnippets.reverse)
             div
-                b= codeSnippet.description
-            div
-                pre(class="brush: #{codeSnippet.language}")= "\n" + codeSnippet.code
-            div
+                div
+                    b= codeSnippet.description
+                div
+                    pre(class="brush: #{codeSnippet.language}")= "\n" + codeSnippet.code
+                div
                 i= codeSnippet.formattedTime
 
 <script type="text/javascript">
 | SyntaxHighlighter.all();
-| var lastCodeSnippetId = '#{room.lastCodeSnippetId}';
-| var room = '#{room.room}';
+| var lastCodeSnippetId = '#{board.lastCodeSnippetId}';
+| var board = '#{board.board}';
 |</script>
 <script src="/js/jquery-1.7.2.js"></script>
 <script src="/js/jquery-atmosphere.js"></script>

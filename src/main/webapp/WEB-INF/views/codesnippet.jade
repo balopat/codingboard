@@ -1,11 +1,12 @@
--@val room: String
+-@val board: String
 -@val formtoken: String
-- attributes("title") = "ShareTheCode- Share your code"
+- attributes("title") = "CodingBoard- Share your code"
 
 div
-    form(method="POST" action="/rooms/#{room}/post")
+    form(method="POST" action="/boards/#{board}/post")
         fieldset
-            legend Share your code
+            legend 
+                h1 Share your code
             input(type="hidden" name="formtoken" value="#{formtoken}" id="formtoken")
             div
                 input(placeholder="Description..." name="description" id="description")

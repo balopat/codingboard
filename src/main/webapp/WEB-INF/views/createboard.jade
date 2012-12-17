@@ -1,0 +1,16 @@
+-@val errorMessage: String = ""
+- attributes("title") = "CodingBoard - Create board"
+- attributes("headline") = "Create your board"
+
+div
+    form(method="POST" action="submitboard")
+        div
+            input(placeholder="Name your board..." name="board" id="board")
+        div
+            p(class="text-error")=errorMessage
+        div
+            button(class="btn btn-info btn-large" type="submit") Create CodingBoard
+
+<script src="/js/jquery-1.7.2.js"></script>
+:javascript
+    $('#board').focus()

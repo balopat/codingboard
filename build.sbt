@@ -4,7 +4,7 @@ seq(SbtStartScript.startScriptForClassesSettings: _*)
 
 organization := "com.balopat"
 
-name := "Dojo Share"
+name := "Share The Code"
 
 version := "0.1.0-SNAPSHOT"
 
@@ -29,6 +29,7 @@ libraryDependencies ++= Seq(
   "org.eclipse.jetty.orbit" % "javax.servlet" % "3.0.0.v201112011016" % "container;provided;test" artifacts (Artifact("javax.servlet",
   "jar", "jar")),
   "org.fusesource.scalamd" % "scalamd" % "1.5",
-  "com.ocpsoft" % "ocpsoft-pretty-time" % "1.0.7")
+  "com.ocpsoft" % "ocpsoft-pretty-time" % "1.0.7",
+"org.xmlmatchers" % "xml-matchers" % "0.10")
 
 resolvers += "Sonatype OSS Snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"

@@ -1,6 +1,8 @@
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.servlet.{DefaultServlet, ServletContextHandler}
 import org.eclipse.jetty.webapp.WebAppContext
+import com.balopat.sharethecode.CodingBoardServlet
+import org.eclipse.jetty.servlet.ServletHolder
 
 object JettyLauncher {
   def main(args: Array[String]) {
@@ -10,7 +12,7 @@ object JettyLauncher {
     val context = new WebAppContext()
     context setContextPath "/"
     context.setResourceBase("src/main/webapp")
-    context.addServlet(classOf[com.balopat.sharethecode.ShareTheCodeServlet], "/*")
+    context.addServlet(new ServletHolder(new CodingBoardServlet()), "/*")
     context.addServlet(classOf[DefaultServlet], "/")
 
     server.setHandler(context)

@@ -1,31 +1,30 @@
--@val rooms: Iterable[String]
+-@val boards: Iterable[String]
 -@val errorMessage: String = ""
 
-- attributes("title") = "ShareTheCode - Welcome!"
-- attributes("headline") = "Welcome!"
+- attributes("title") = "CodingBoard"
 
 div(class="container")
     div(class="row span8 ")
         #errorMessage
             p(class="text-error")=errorMessage
 
-        - if (!rooms.isEmpty)
+        - if (!boards.isEmpty)
             h2
-                a(href="#") Current rooms
+                a(href="#") Current boards
 
             table(class="table table-hover striped")
-                - for (room <- rooms)
-                    tr(class="clickable" onclick="window.location='/rooms/#{room}';")
+                - for (board <- boards)
+                    tr(class="clickable" onclick="window.location='/boards/#{board}';")
                         td
-                            a(href="/rooms/#{room}")= room
+                            a(href="/boards/#{board}")= board
 
     div(class="row span3 offset3")
-        button(class="btn btn-info btn-large" onclick="window.location='/createroom'") Create a room!
+        button(class="btn btn-info btn-large" onclick="window.location='/createboard'") Create a board!
     div(class="row span8")
         h2
             a(name="about") About
         p This app is the tool for your next hands-on session or Dojo.
-        p The presenter creates a room, coders connect to the room and paste their codes when it's about discussion and everyone sees it on the projected screen.  Share other links in Plain Text. That's it. Like a big, syntax highlighted chat. Simples.
+        p The presenter creates a board, coders connect to the board and paste their codes when it's about discussion and everyone sees it on the projected screen.  Share other links in Plain Text. That's it. Like a big, syntax highlighted chat. Simples.
         h2
             a(name="contact") Contact
         p

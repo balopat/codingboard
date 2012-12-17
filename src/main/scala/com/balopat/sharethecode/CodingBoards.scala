@@ -3,14 +3,17 @@ package com.balopat.sharethecode
 import scala.collection.mutable.Map
 import scala.collection.immutable.List
 
+object CodingBoards  {
+  def instance = new CodingBoards() 
+}
 
-object Rooms {
+class CodingBoards {
 
-  private val rooms = Map[String, Room]()
+  private val rooms = Map[String, CodingBoard]()
   private var formTokens = scala.collection.mutable.Seq[String]()
 
   def create(room:String) = {
-    rooms += (room -> new Room(room))
+    rooms += (room -> new CodingBoard(room))
   }
 
 

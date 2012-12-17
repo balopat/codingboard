@@ -1,17 +1,17 @@
 package com.balopat.sharethecode
 
 
-case class Room (room: String) {
+case class CodingBoard (board: String) {
 
   var codeSnippets = List[CodeSnippet]()
   
-  def += (codeSnippet : CodeSnippet): Room = {
+  def += (codeSnippet : CodeSnippet): CodingBoard = {
     if (codeSnippets.filter( _.id.equals(codeSnippet.id)).isEmpty) 
       codeSnippets :+= codeSnippet
      this
   }
 
-  override def toString = room
+  override def toString = board
   
   def lastCodeSnippetId = if (codeSnippets.isEmpty)  "" else codeSnippets.last.id
 

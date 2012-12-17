@@ -1,5 +1,4 @@
 -@ val title: String
--@ val headline: String = title
 -@ val body: String
 
 !!!
@@ -7,24 +6,13 @@ html
     head
         title= title
         link(href="/css/bootstrap.css" rel="stylesheet" media="screen" type="text/css")/
-    body(style="padding-top: 60px;")
+    body(style="padding-top: 70px;")
         div(class="navbar navbar-inverse navbar-fixed-top")
             div(class="navbar-inner")
                 div(class="container")
                     a(class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse")
-                        span(class="icon-bar")
-                        span(class="icon-bar")
-                        span(class="icon-bar")
-                    a(class="brand" href="/") Share the code
-                    div(class="nav-collapse collapse")
-                        ul(class="nav")
-                            li(class="active")
-                                a(href="/") Rooms
-                            li
-                                a(href="/#about") About
-                            li
-                                a(href="/#contact") Contact
-
+                        a(href="/")
+                            img(src="/img/codingboard_logo.png")            
         div(class="container")
 
             div(class="row")
