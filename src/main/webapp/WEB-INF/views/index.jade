@@ -19,7 +19,7 @@ div(class="container")
                             a(href="/boards/#{board}")= board
 
     div(class="row span3 offset3")
-        button(class="btn btn-info btn-large" onclick="window.location='/createboard'") Create a board!
+        button(id="goto_create_board" class="btn btn-info btn-large" onclick="window.location='/createboard'") Create a board!
     div(class="row span8")
         h2
             a(name="about") About
