@@ -1,13 +1,22 @@
--@val errorMessage: String = ""
+-@val boardErrorMessage: String = ""
+-@val lifeTimeErrorMessage: String = ""
+-@val board: String = ""
+-@val lifeTime: String = ""
 - attributes("title") = "CodingBoard - Create Board"
-- attributes("headline") = "Create your board"
 
-div
-    form(method="POST" action="submitboard")
+form(method="POST" action="submitboard")
+    fieldset
+        legend 
+            h2 The details of your CodingBoard
         div
-            input(placeholder="Name your board..." name="board" id="board")
+            label Describe your session:
+            input(placeholder="Name your board..." name="board" id="board" value="#{board}" size="50")
         div
-            p(class="text-error")=errorMessage
+            p(class="text-error")=boardErrorMessage
+        div
+            input(placeholder="Lifetime of your board in minutes" name="lifeTimeInMinutes" id="lifeTimeInMinutes" value="#{lifeTime}" size="50")
+        div
+            p(class="text-error")=lifeTimeErrorMessage
         div
             button(id="submit" class="btn btn-info btn-large" type="submit") Create CodingBoard
 

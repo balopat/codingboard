@@ -1,7 +1,7 @@
 package com.balopat.codingboard
 
 
-case class CodingBoard (board: String) {
+case class CodingBoard (board: String, lifeTimeInMinutes: Integer, creationTimeInMillis: Long) {
 
   var codeSnippets = List[CodeSnippet]()
   
@@ -15,4 +15,9 @@ case class CodingBoard (board: String) {
   
   def lastCodeSnippetId = if (codeSnippets.isEmpty)  "" else codeSnippets.last.id
 
+  def isExpired(now: Long) = lifeTimeInMinutes * 60 < timeLeftInSeconds
+
+  def timeLeftInSeconds(now: Long = System.currentTimeMillis) = {
+    (lifeTimeInMinutes * 60 ) -(now - creationTimeInMillis)/1000
+  }
 }

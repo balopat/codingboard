@@ -6,12 +6,12 @@ div
     form(method="POST" action="/boards/#{board}/post")
         fieldset
             legend 
-                h1 Share your code
+                h2 Share your code
             input(type="hidden" name="formtoken" value="#{formtoken}" id="formtoken")
             div
                 input(placeholder="Description..." name="description" id="description")
             div
-                textarea(value="bla" name="code" id="code" rows="20" width="100%")
+                textarea(value="bla" name="code" id="code" rows="25" width="100%")
             div
                 select(name="language" id="language")
                     option(value="as3") ActionScript3

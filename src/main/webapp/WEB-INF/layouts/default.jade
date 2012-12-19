@@ -5,8 +5,9 @@
 html
     head
         title= title
-        link(href="/css/bootstrap.css" rel="stylesheet" media="screen" type="text/css")/
-    body(style="padding-top: 70px;")
+        link(href="/css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css")/
+        link(href="/css/sticky.css" rel="stylesheet" media="screen" type="text/css")/
+    body
         div(class="navbar navbar-inverse navbar-fixed-top")
             div(class="navbar-inner")
                 div(class="container")
@@ -14,11 +15,19 @@ html
                         a(href="/")
                             img(src="/img/codingboard_logo.png")            
         div(class="container")
+            div(class="content") 
+                div(class="wrapper") 
+                    div(class="proper-content")
+                        div(class="row")
+                            div(class="span12 offset1")
+                                !=body
+                    div(class="push")
+                div(class="footer-wrapper")
+                    :markdown
+                        CodingBoard was started by [@balopat](http://twitter.com/balopat) to learn Scala and Scalatra
 
-            div(class="row")
-                div(class="span8 offset2")
-                    #content
-                    != body
+                        [about.me](http://about.me/balintpato)
+                        This project is opensource, it's on [Github](http://github.com/balopat/sharethecode)
         <script src="/js/bootstrap.min.js"></script>
         :javascript
               var _gaq = _gaq || [];

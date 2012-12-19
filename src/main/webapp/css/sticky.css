@@ -1,0 +1,47 @@
+html, body, .container, .content {
+    height: 100%;
+}
+
+input {
+    width: 280px;
+}
+
+textarea {
+    width: 90%;
+    line-height: 15px;
+}
+
+
+.clickable {
+    cursor: pointer;
+} 
+.container, .content {
+    position: relative;
+}
+ 
+.proper-content {
+    padding-top: 70px; /* >= navbar height */
+    padding-bottom: 70px;
+}
+ 
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -50px; /* same as the footer */
+}
+ 
+.push {
+    height: 50px; /* same as the footer */
+}
+.footer-wrapper {
+    position: relative;
+    height: 50px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 4px;
+}
+
+#goto_create_board {
+    float: right;
+}

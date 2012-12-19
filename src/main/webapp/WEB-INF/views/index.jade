@@ -1,36 +1,35 @@
--@val boards: Iterable[String]
+-@val boards: Iterable[com.balopat.codingboard.CodingBoard]
 -@val errorMessage: String = ""
 
 - attributes("title") = "CodingBoard"
 
-div(class="container")
-    div(class="row span8 ")
-        #errorMessage
-            p(class="text-error")=errorMessage
+div(class="row span8 ")
+    div#errorMessage
+        p(class="text-error")=errorMessage
+    
+        button(id="goto_create_board" class="btn btn-success btn-large" onclick="window.location='/createboard'") + Create a board!
 
-        - if (!boards.isEmpty)
-            h2
-                a(href="#") Current boards
+    - if (!boards.isEmpty)
+        h2 Current CodingBoards
 
-            table(class="table table-hover striped")
-                - for (board <- boards)
-                    tr(class="clickable" onclick="window.location='/boards/#{board}';")
-                        td
-                            a(href="/boards/#{board}")= board
+        table(class="table table-hover striped")
+            - for (board <- boards)
+                tr(class="clickable" onclick="window.location='/boards/#{board}';")
+                    td
+                        =board
+                    td 
+                        =board.timeLeftInMinutesAndSeconds(System.currentTimeMillis)
+div(class="row span8")
+    h2 What is a CodingBoard? 
+    p A simple collaboration tool to share information.
+    p On a hands-on/teaching/practice session
+    ol 
+        li The presenter creates a CodingBoard for the session (no registration and other hassle)
+        li Developers navigate to the CodingBoard  
+        li paste their codes so that everyone sees it on the projected screen automatically updated
+    p Share useful links in Plain Text. Write funny messages. Enjoy. That's it. 
+    p Like a big, syntax highlighted chat. Simples.
+    h2 Why does it timeout?
+    p A CodingBoard is for a session. If you want to persist the result the only option is to save the page. Later on a Gist integration is likely but CodingBoard remains database free.
 
-    div(class="row span3 offset3")
-        button(id="goto_create_board" class="btn btn-info btn-large" onclick="window.location='/createboard'") Create a board!
-    div(class="row span8")
-        h2
-            a(name="about") About
-        p This app is the tool for your next hands-on session or Dojo.
-        p The presenter creates a board, coders connect to the board and paste their codes when it's about discussion and everyone sees it on the projected screen.  Share other links in Plain Text. That's it. Like a big, syntax highlighted chat. Simples.
-        h2
-            a(name="contact") Contact
-        p
-            :markdown
-                ShareTheCode was written by [@balopat]("http://twitter.com/balopat")
-                [about.me]("http://about.me/balintpato")
-                This project is opensource, you can find the code in [Github](http://github.com/balopat/sharethecode)
-
-
+    

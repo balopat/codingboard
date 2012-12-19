@@ -32,6 +32,7 @@ libraryDependencies ++= Seq(
 "org.xmlmatchers" % "xml-matchers" % "0.10" % "test",
 "org.seleniumhq.selenium" % "selenium-java" % "2.24.1" % "test",
 "org.seleniumhq.selenium" % "selenium-firefox-driver" % "2.24.1" % "test",
-"org.scalatest" %% "scalatest" % "2.0.M5" % "test")
+"org.scalatest" %% "scalatest" % "2.0.M5" % "test",
+"org.scalatra" % "scalatra-akka" % "2.2.0-RC2")
 
 resolvers += "Sonatype OSS Snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
