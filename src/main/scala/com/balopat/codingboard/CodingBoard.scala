@@ -17,7 +17,7 @@ case class CodingBoard (board: String, lifeTimeInMinutes: Integer, creationTimeI
 
   def isExpired(now: Long) = lifeTimeInMinutes * 60 < timeLeftInSeconds(now)
 
-  def timeLeftInSeconds(now: Long = System.currentTimeMillis) = {
+  def timeLeftInSeconds(now: Long = System.currentTimeMillis): Long = {
     (lifeTimeInMinutes * 60 ) -(now - creationTimeInMillis)/1000
   }
 }

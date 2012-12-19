@@ -1,6 +1,6 @@
 function updateIfRequired(){
     $.ajax( {
-        url: "/rooms/" + room + "/refresh",
+        url: "/boards/" + board + "/refresh",
         data: {
             lastCodeSnippetId: lastCodeSnippetId
         },
