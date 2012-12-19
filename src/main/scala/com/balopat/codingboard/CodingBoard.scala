@@ -15,7 +15,7 @@ case class CodingBoard (board: String, lifeTimeInMinutes: Integer, creationTimeI
   
   def lastCodeSnippetId = if (codeSnippets.isEmpty)  "" else codeSnippets.last.id
 
-  def isExpired(now: Long) = lifeTimeInMinutes * 60 < timeLeftInSeconds
+  def isExpired(now: Long) = lifeTimeInMinutes * 60 < timeLeftInSeconds(now)
 
   def timeLeftInSeconds(now: Long = System.currentTimeMillis) = {
     (lifeTimeInMinutes * 60 ) -(now - creationTimeInMillis)/1000
