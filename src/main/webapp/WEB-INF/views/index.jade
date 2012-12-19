@@ -22,7 +22,7 @@ div(class="row span8 ")
                     td
                         span(id="time#{i}") #{board.timeLeftInSeconds(System.currentTimeMillis)} seconds left
                         <script type="text/javascript">
-                        |    var timeLeftInSeconds#{i} = parseInt('#{board.timeLeftInSeconds(System.currentTimeMillis)}')
+                        |    var timeLeftInSeconds#{i} = parseInt('#{board.timeLeftInSeconds(System.currentTimeMillis)}'.replace(',',''))
                         |    function updateTimer#{i}() {
                         |       var mins = Math.floor(timeLeftInSeconds#{i}/60)
                         |       var m = mins == 0 ? "" : mins + " minutes " 
