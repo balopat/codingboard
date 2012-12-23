@@ -37,15 +37,6 @@ class CodingBoardSpec extends Specification {
           board.codeSnippets.size should_==(1)
        }
       
-       
-       "does not expires before the lifetime reaches the end" in {
-          "just before 1 minute should not be expired" ! (!aBoard.isExpired(60999))
-       }
-
-       "expires when lifetime reaches the end" in {
-          "just after 1 minute should expire" ! (aBoard.isExpired(61001))
-       }
-
        def aBoard() = {
          val lifeTimeInMinutes = 1 
          val creationTimeInMillis = 1000

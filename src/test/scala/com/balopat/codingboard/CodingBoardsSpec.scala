@@ -6,7 +6,7 @@ class CodingBoardsSpec extends Specification {
 
   val fixture = new {
      val boards = new CodingBoards()
-     val lifeTimeInMinutes = 1   
+     val lengthOfSessionInMinutes = 1   
      val creationTimeInMillis: Long = 1000
   } 
 
@@ -32,11 +32,25 @@ class CodingBoardsSpec extends Specification {
       aTestCodingBoard("t2")
       aTestCodingBoard("t3")
       
-      fixture.boards.list must contain ("t1", "t2", "t3")
+      fixture.boards.list.map(_.board) must contain ("t1", "t2", "t3")
     }
-    
+  
+    "not allow empty boardname" in {
+      fixture.boards.validate("", "1") should beEqualTo("boardNameError"->"Board name cannot be empty", "lengthOfSessionError" -> "")    
+    }
+    "not allow empty lengthOfSession" in {
+      fixture.boards.validate("test", "") should beEqualTo("boardNameError"->"", "lengthOfSessionError" -> "Length of session cannot be empty")    
+    }
+
+
      def aTestCodingBoard(name: String = "testingCodingBoard")  = { 
-        fixture.boards.create(name, fixture.lifeTimeInMinutes, fixture.creationTimeInMillis)
+        fixture.boards.create(name, fixture.lengthOfSessionInMinutes, fixture.creationTimeInMillis)
+     }
+
+     def cleanUpBoards() = {
+       fixture.boards.list.foreach ( b => {
+         fixture.boards.remove(b.board)
+       })
      }
 
   }

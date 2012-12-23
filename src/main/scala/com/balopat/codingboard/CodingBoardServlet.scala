@@ -1,27 +1,21 @@
 package com.balopat.codingboard
 
-import akka.actor.ActorSystem
-import _root_.akka.dispatch._
 import org.scalatra._
 import scalate.ScalateSupport
 import scala.collection.immutable.List
-import org.scalatra.atmosphere._
 import org.scalatra.json.{JValueResult, JacksonJsonSupport}
 import org.json4s._
 import JsonDSL._
-import org.atmosphere.cpr.MetaBroadcaster
-import org.scalatra.akka.AkkaSupport
 import actors.{Actor,TIMEOUT}
 import Actor._
 
 
 class CodingBoardServlet(boards: CodingBoards = CodingBoards.instance) extends ScalatraServlet
   with ScalateSupport with JValueResult
-  with JacksonJsonSupport with SessionSupport
-  with AkkaSupport {  
+  with JacksonJsonSupport 
+  {  
 
     implicit protected val jsonFormats: Formats = DefaultFormats
-    implicit val system = ActorSystem("CodingBoardActors")
 
     get("/") {
        index()
@@ -29,16 +23,16 @@ class CodingBoardServlet(boards: CodingBoards = CodingBoards.instance) extends S
 
     post("/submitboard") {
        val board = params("board")
-       val lifeTime = params("lifeTimeInMinutes")
+       val lengthOfSession = params("lengthOfSessionInMinutes")
        try {
-           contentType="text/html"
-           if (boards.exists(board)) {
-              jade("createboard", "boardErrorMessage" -> "A board with this name already exists!", "board" -> board)
+            if (boards.exists(board)){
+               contentType="text/html"
+               jade("createboard", "boardErrorMessage" -> "A board with this name already exists!", "board" -> board)
            } else if (board == null || board.isEmpty) {
               jade("createboard", "boardErrorMessage" -> "Please name your board!", "board" -> board)
            } else {
-               boards.create(board, lifeTime.toInt, System.currentTimeMillis)
-               val evictionTime = lifeTime.toInt * 60000
+               boards.create(board, lengthOfSession.toInt, System.currentTimeMillis)
+               val evictionTime = lengthOfSession.toInt * 60000
                actor {
                   receiveWithin(evictionTime) {
                     case TIMEOUT => boards.remove(board)
@@ -47,7 +41,7 @@ class CodingBoardServlet(boards: CodingBoards = CodingBoards.instance) extends S
               joinCodingBoard(board)
            }
         } catch {
-          case _ => jade("createboard", "lifeTimeErrorMessage" -> "How long will your session be?", "board" -> board, "lifeTime" -> lifeTime)
+          case _ => jade("createboard", "lengthOfSessionErrorMessage" -> "How long will your session be?", "board" -> board, "lengthOfSession" -> lengthOfSession)
         }
     }
 

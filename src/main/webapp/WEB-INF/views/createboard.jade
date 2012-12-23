@@ -1,7 +1,7 @@
 -@val boardErrorMessage: String = ""
--@val lifeTimeErrorMessage: String = ""
+-@val lengthOfSessionErrorMessage: String = ""
 -@val board: String = ""
--@val lifeTime: String = ""
+-@val lengthOfSession: String = ""
 - attributes("title") = "CodingBoard - Create Board"
 
 form(method="POST" action="submitboard")
@@ -14,9 +14,9 @@ form(method="POST" action="submitboard")
         div
             p(class="text-error")=boardErrorMessage
         div
-            input(placeholder="Lifetime of your board in minutes" name="lifeTimeInMinutes" id="lifeTimeInMinutes" value="#{lifeTime}" size="50")
+            input(placeholder="Lifetime of your board in minutes" name="lengthOfSessionInMinutes" id="lengthOfSessionInMinutes" value="#{lengthOfSession}" size="50")
         div
-            p(class="text-error")=lifeTimeErrorMessage
+            p(class="text-error")=lengthOfSessionErrorMessage
         div
             button(id="submit" class="btn btn-info btn-large" type="submit") Create CodingBoard
 

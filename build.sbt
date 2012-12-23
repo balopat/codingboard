@@ -17,7 +17,6 @@ seq(ScctPlugin.instrumentSettings : _*)
 classpathTypes ~= (_ + "orbit")
 
 libraryDependencies ++= Seq(
-"org.scalatra" % "scalatra-atmosphere" % "2.2.0-SNAPSHOT",
 "org.scalatra" % "scalatra-json" % "2.2.0-SNAPSHOT",
 "org.json4s"   %% "json4s-jackson" % "3.0.0",
 "org.eclipse.jetty" % "jetty-websocket" % "8.1.7.v20120910" % "container",
@@ -32,7 +31,8 @@ libraryDependencies ++= Seq(
 "org.xmlmatchers" % "xml-matchers" % "0.10" % "test",
 "org.seleniumhq.selenium" % "selenium-java" % "2.24.1" % "test",
 "org.seleniumhq.selenium" % "selenium-firefox-driver" % "2.24.1" % "test",
-"org.scalatest" %% "scalatest" % "2.0.M5" % "test",
-"org.scalatra" % "scalatra-akka" % "2.2.0-RC2")
+"org.scalatest" %% "scalatest" % "2.0.M5" % "test")
+
+testOptions in PageTest := Seq(Tests.Filter(s => s.endsWith("Page")))
 
 resolvers += "Sonatype OSS Snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
