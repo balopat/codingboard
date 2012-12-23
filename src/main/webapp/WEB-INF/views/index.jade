@@ -15,7 +15,7 @@ div(class="row span8 ")
         table(class="table table-hover striped")
             - var i = 0
             - for (board <- boards)
-                tr(class="clickable" onclick="window.location='/boards/#{board}';")
+                tr(class="clickable" onclick="window.location='/boards/#{board.url}';")
                     td
                         =board
                         - i+=1

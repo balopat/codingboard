@@ -14,20 +14,22 @@ class CodingBoards {
   val boards = Map[String, CodingBoard]()
   private var formTokens = scala.collection.mutable.Seq[String]()
 
-  def create(board:String, lengthOfSessionInMillis: Long, creationTimeInMillis: Long) = {
-     boards += (board -> new CodingBoard(board, lengthOfSessionInMillis, creationTimeInMillis))
-     actor {
-        receiveWithin(lengthOfSessionInMillis) {
-          case TIMEOUT => boards.remove(board)
-        }
+  def create(boardName:String, lengthOfSessionInMillis: Long, creationTimeInMillis: Long) = {
+    val board = new CodingBoard(boardName, lengthOfSessionInMillis, creationTimeInMillis)
+    boards += (board.url -> board)
+    actor {
+      receiveWithin(lengthOfSessionInMillis) {
+        case TIMEOUT => boards.remove(board.url)
       }
+    }
+    board
   }
 
 
-  def get(board: String) =  boards(board)
-  def exists(board: String) = boards.contains(board)
+  def get(boardURL: String) =  boards(boardURL)
+  def exists(boardURL: String) = boards.contains(boardURL)
   def list = boards.values
-  def remove(board: String) = boards.remove(board)
+  def remove(boardURL: String) = boards.remove(boardURL)
 
   val boardNameValidations = List[(String, String => Boolean)](
         ("Board name cannot be empty", (name: String) => name == null || name.isEmpty)

@@ -28,10 +28,8 @@ class CodingBoardServlet(boards: CodingBoards = CodingBoards.instance) extends S
          if (!validationErrors.isEmpty) {
              contentType="text/html"
              jade("createboard", (validationErrors :+ ("board"->board) :+ ("lengthOfSession" -> lengthOfSession)).toArray :_* )
-         } else {
-             boards.create(board, lengthOfSession.toInt * 60000, System.currentTimeMillis)
-             joinCodingBoard(board)
-         }
+         } else joinCodingBoard(boards.create(board, lengthOfSession.toInt * 60000, System.currentTimeMillis).url)
+         
     }
 
     get("/boards/:board") {
@@ -91,16 +89,16 @@ class CodingBoardServlet(boards: CodingBoards = CodingBoards.instance) extends S
        jade("index", ("boards" -> boards.list :: extraAttributes.toList).toArray: _*)
     }
 
-    def joinCodingBoard(board: String, extraAttributes: (String, Any)*) = {
+    def joinCodingBoard(boardURL: String, extraAttributes: (String, Any)*) = {
        contentType="text/html"
        whenCodingBoardExistsOtherwiseErrorOnHomePage(
-          board, 
-          jade("board", ("board" -> boards.get(board) :: extraAttributes.toList).toArray: _*  )
+          boardURL, 
+          jade("board", ("board" -> boards.get(boardURL) :: extraAttributes.toList).toArray: _*  )
        )
     }
    
-    def whenCodingBoardExistsOtherwiseErrorOnHomePage(board: String, boardExistsPage: =>Any) = {
-       if (boards.exists(board)) {
+    def whenCodingBoardExistsOtherwiseErrorOnHomePage(boardURL: String, boardExistsPage: =>Any) = {
+       if (boards.exists(boardURL)) {
           boardExistsPage
        } else {
           index("errorMessage" -> "CodingBoard not found!")

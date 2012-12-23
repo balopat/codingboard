@@ -19,12 +19,12 @@ class CodingBoardsSpec extends Specification {
 
     "say the board exists after created" in {
       aTestCodingBoard("testCodingBoard")
-      fixture.boards.exists("testCodingBoard") should beEqualTo(true)
+      fixture.boards.exists("testcodingboard") should beEqualTo(true)
     }
 
     "can return a board after created" in {
       aTestCodingBoard("testCodingBoard")
-      fixture.boards.get("testCodingBoard") must beAnInstanceOf[CodingBoard]
+      fixture.boards.get("testcodingboard") must beAnInstanceOf[CodingBoard]
     }
 
     "returns the name of the boards" in {

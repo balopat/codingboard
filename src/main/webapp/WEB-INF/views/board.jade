@@ -37,7 +37,7 @@ div(class="container")
         h2= board
         br
     div(class="row span8 offset3")
-        button(class="btn btn-info btn-large" onclick="window.location='/boards/#{board}/codesnippet'") share a codesnippet 
+        button(class="btn btn-info btn-large" onclick="window.location='/boards/#{board.url}/codesnippet'") share a codesnippet 
 
     div(class="row span11 " id="codeSnippets")
         - for (codeSnippet <- board.codeSnippets.reverse)
