@@ -27,6 +27,11 @@ class CodingBoardsSpec extends Specification {
       fixture.boards.get("testcodingboard") must beAnInstanceOf[CodingBoard]
     }
 
+    "not return a board when removed" in {
+      fixture.boards.remove("testcodingboard")
+      fixture.boards.exists("non existent board") should beEqualTo(false) 
+    }
+
     "returns the name of the boards" in {
       aTestCodingBoard("t1")
       aTestCodingBoard("t2")
@@ -62,6 +67,10 @@ class CodingBoardsSpec extends Specification {
       fixture.boards.create("expiring board", 100, 1000)
       Thread.sleep(101)
       fixture.boards.exists("expiring board") should beFalse
+    }
+
+    "coding boards instance should be available" in {
+      CodingBoards.instance should not beNull
     }
 
     def aTestCodingBoard(name: String = "testingCodingBoard")  = { 

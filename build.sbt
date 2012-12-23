@@ -33,6 +33,8 @@ libraryDependencies ++= Seq(
 "org.seleniumhq.selenium" % "selenium-firefox-driver" % "2.24.1" % "test",
 "org.scalatest" %% "scalatest" % "2.0.M5" % "test")
 
-testOptions in PageTest := Seq(Tests.Filter(s => s.endsWith("Page")))
+testOptions in PageTest := Seq(Tests.Filter(s => s.endsWith("FlowSpec")))
+
+testOptions in Test := Seq(Tests.Filter(s => !s.endsWith("FlowSpec")))
 
 resolvers += "Sonatype OSS Snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
