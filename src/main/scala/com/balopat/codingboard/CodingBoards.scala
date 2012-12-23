@@ -2,7 +2,8 @@ package com.balopat.codingboard
 
 import scala.collection.mutable.Map
 import scala.collection.immutable.List
-import scala.actors.Actor
+import actors.{Actor,TIMEOUT}
+import Actor._
 
 object CodingBoards  {
   def instance = new CodingBoards() 
@@ -13,8 +14,13 @@ class CodingBoards {
   val boards = Map[String, CodingBoard]()
   private var formTokens = scala.collection.mutable.Seq[String]()
 
-  def create(board:String, lengthOfSessionInMinutes: Integer, creationTimeInMillies: Long) = {
-    boards += (board -> new CodingBoard(board, lengthOfSessionInMinutes, creationTimeInMillies))
+  def create(board:String, lengthOfSessionInMillis: Long, creationTimeInMillis: Long) = {
+     boards += (board -> new CodingBoard(board, lengthOfSessionInMillis, creationTimeInMillis))
+     actor {
+        receiveWithin(lengthOfSessionInMillis) {
+          case TIMEOUT => boards.remove(board)
+        }
+      }
   }
 
 
@@ -27,15 +33,26 @@ class CodingBoards {
         ("Board name cannot be empty", (name: String) => name == null || name.isEmpty)
         ,("Board already exists", (name: String) => exists(name))
       )
+
   val lengthOfSessionValidations = List[(String, String => Boolean)](
       ("Length of session cannot be empty", (lengthOfSession: String) => 
-        lengthOfSession == null || lengthOfSession.isEmpty)
-
+        lengthOfSession == null || lengthOfSession.isEmpty),
+      ("Please provide an integer value for length of session!", (lengthOfSession: String) => 
+        {
+          try{
+              lengthOfSession.toInt
+              false
+          }catch {
+            case _ => true
+          }
+        }) 
     )
 
   def validate(board: String, lengthOfSession: String) = {
-    ("boardNameError" -> boardNameValidations.filter(_._2(board)).map(_._1).firstOption.getOrElse(""),
-     "lengthOfSessionError" -> lengthOfSessionValidations.filter(_._2(lengthOfSession)).map(_._1).firstOption.getOrElse(""))
+    Seq("boardNameError" -> 
+      boardNameValidations.filter(_._2(board)).map(_._1).firstOption.getOrElse(""),
+     "lengthOfSessionError" -> 
+      lengthOfSessionValidations.filter(_._2(lengthOfSession)).map(_._1).firstOption.getOrElse("")).filter(!_._2.equals(""))
   }
 }
 

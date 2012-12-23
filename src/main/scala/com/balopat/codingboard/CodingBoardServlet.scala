@@ -22,27 +22,16 @@ class CodingBoardServlet(boards: CodingBoards = CodingBoards.instance) extends S
     }
 
     post("/submitboard") {
-       val board = params("board")
-       val lengthOfSession = params("lengthOfSessionInMinutes")
-       try {
-            if (boards.exists(board)){
-               contentType="text/html"
-               jade("createboard", "boardErrorMessage" -> "A board with this name already exists!", "board" -> board)
-           } else if (board == null || board.isEmpty) {
-              jade("createboard", "boardErrorMessage" -> "Please name your board!", "board" -> board)
-           } else {
-               boards.create(board, lengthOfSession.toInt, System.currentTimeMillis)
-               val evictionTime = lengthOfSession.toInt * 60000
-               actor {
-                  receiveWithin(evictionTime) {
-                    case TIMEOUT => boards.remove(board)
-                  }
-                }
-              joinCodingBoard(board)
-           }
-        } catch {
-          case _ => jade("createboard", "lengthOfSessionErrorMessage" -> "How long will your session be?", "board" -> board, "lengthOfSession" -> lengthOfSession)
-        }
+         val board = params("board")
+         val lengthOfSession = params("lengthOfSessionInMinutes")
+         val validationErrors = boards.validate(board, lengthOfSession)
+         if (!validationErrors.isEmpty) {
+             contentType="text/html"
+             jade("createboard", (validationErrors :+ ("board"->board) :+ ("lengthOfSession" -> lengthOfSession)).toArray :_* )
+         } else {
+             boards.create(board, lengthOfSession.toInt * 60000, System.currentTimeMillis)
+             joinCodingBoard(board)
+         }
     }
 
     get("/boards/:board") {
@@ -73,8 +62,7 @@ class CodingBoardServlet(boards: CodingBoards = CodingBoards.instance) extends S
 
     post("/boards/:board/refresh") {
       val board = params("board")
-       if (boardChanged(board, params("lastCodeSnippetId")))
-       {
+       if (boardChanged(board, params("lastCodeSnippetId"))) {
           compact(render(codeSnippets(board).last.toJSON))
        } else {
           compact(render("refresh"->"norefresh"))

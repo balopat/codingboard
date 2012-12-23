@@ -1,7 +1,7 @@
 package com.balopat.codingboard
 
 
-case class CodingBoard (board: String, lengthOfSessionInMinutes: Integer, creationTimeInMillis: Long) {
+case class CodingBoard (board: String, lengthOfSessionInMillis: Long, creationTimeInMillis: Long) {
 
   var codeSnippets = List[CodeSnippet]()
   
@@ -15,9 +15,13 @@ case class CodingBoard (board: String, lengthOfSessionInMinutes: Integer, creati
   
   def lastCodeSnippetId = if (codeSnippets.isEmpty)  "" else codeSnippets.last.id
 
-  def isExpired(now: Long) = lengthOfSessionInMinutes * 60 < timeLeftInSeconds(now)
+  def isExpired(now: Long) = lengthOfSessionInMillis < timeLeftInSeconds(now) * 1000
 
   def timeLeftInSeconds(now: Long = System.currentTimeMillis): Long = {
-    (lengthOfSessionInMinutes * 60 ) -(now - creationTimeInMillis)/1000
+    ((lengthOfSessionInMillis) - (now - creationTimeInMillis))/1000
+  }
+
+  def url: String = {
+    board.toLowerCase.replaceAll("[^a-z|0-9]","_")
   }
 }

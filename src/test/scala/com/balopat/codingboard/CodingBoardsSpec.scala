@@ -6,9 +6,9 @@ class CodingBoardsSpec extends Specification {
 
   val fixture = new {
      val boards = new CodingBoards()
-     val lengthOfSessionInMinutes = 1   
+     val lengthOfSessionInMillis = 10000   
      val creationTimeInMillis: Long = 1000
-  } 
+  }
 
 
   "CodingBoards" should {
@@ -36,22 +36,43 @@ class CodingBoardsSpec extends Specification {
     }
   
     "not allow empty boardname" in {
-      fixture.boards.validate("", "1") should beEqualTo("boardNameError"->"Board name cannot be empty", "lengthOfSessionError" -> "")    
+      fixture.boards.validate("", "1") should beEqualTo(Seq("boardNameError"->"Board name cannot be empty"))    
     }
+
+    "not allow already existing boardname" in {
+      fixture.boards.validate("t1", "1") should beEqualTo(Seq("boardNameError"->"Board already exists"))    
+    }
+
+    
     "not allow empty lengthOfSession" in {
-      fixture.boards.validate("test", "") should beEqualTo("boardNameError"->"", "lengthOfSessionError" -> "Length of session cannot be empty")    
+      fixture.boards.validate("test", "") should beEqualTo(Seq("lengthOfSessionError" -> "Length of session cannot be empty"))
     }
 
 
-     def aTestCodingBoard(name: String = "testingCodingBoard")  = { 
-        fixture.boards.create(name, fixture.lengthOfSessionInMinutes, fixture.creationTimeInMillis)
-     }
+    "not allow non String lengthOfSession" in {
+      fixture.boards.validate("test", "non-numeric") should beEqualTo(
+            Seq("lengthOfSessionError" -> "Please provide an integer value for length of session!"))
+    }
 
-     def cleanUpBoards() = {
+    "not return any error for correct values" in {
+      fixture.boards.validate("some baord", "1" ).isEmpty should beTrue 
+    }
+
+    "remove the board after expiry" in {
+      fixture.boards.create("expiring board", 100, 1000)
+      Thread.sleep(101)
+      fixture.boards.exists("expiring board") should beFalse
+    }
+
+    def aTestCodingBoard(name: String = "testingCodingBoard")  = { 
+        fixture.boards.create(name, fixture.lengthOfSessionInMillis, fixture.creationTimeInMillis)
+    }
+
+    def cleanUpBoards() = {
        fixture.boards.list.foreach ( b => {
          fixture.boards.remove(b.board)
-       })
-     }
+        })
+    }
 
   }
 

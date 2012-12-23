@@ -36,9 +36,13 @@ class CodingBoardSpec extends Specification {
           board += aCodeSnippet += anotherCodeSnippet
           board.codeSnippets.size should_==(1)
        }
-      
+
+      "says 300 seconds left when lifeTimeInMillis + creationTimeInMillis - now = 300000" in {
+          aBoard.timeLeftInSeconds(201000) should beEqualTo(300)
+      }
+
        def aBoard() = {
-         val lifeTimeInMinutes = 1 
+         val lifeTimeInMinutes =  500000
          val creationTimeInMillis = 1000
          new CodingBoard("board", lifeTimeInMinutes, creationTimeInMillis)
        }
