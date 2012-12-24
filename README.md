@@ -16,12 +16,14 @@ Now open the site's [root page](http://localhost:8080/) in your browser.
 
 ## Running all tests
 
-``` ./sbt test container:start page:test container:stop
-
+```sh
+ ./sbt test container:start page:test container:stop
+```
 ### Running unit specs only
 
-``` ./sbt test
-
+``` 
+./sbt test
+```
 ### Running PageTests only
 
 ``` ./sbt container:start page:test container:stop
