@@ -1,7 +1,7 @@
-# ShareTheCode #
+# CodingBoard #
 
-[Coding Room](http://codingboard.org) is a tiny, super-lightweight application to share code in a syntax highlighted way within a room, on short sessions. 
-People join in a room (without registration) and post the newest version of their current practice code which the presenter can show on the screen. This way retrospectives can be more fruitful having the code up on the projected screen. 
+[CodingBoard](http://codingboard.org) is a tiny, super-lightweight application to share code in a syntax highlighted way within a room, on short sessions. 
+People join to a board (without registration) and post the newest version of their current practice code which the presenter can show on the screen. This way retrospectives can be more fruitful having the code up on the projected screen. 
 
 ## Build & Run ##
 
@@ -16,15 +16,19 @@ Now open the site's [root page](http://localhost:8080/) in your browser.
 
 ## Running all tests
 
-`` ./sbt test container:start page:test container:stop
-
+```sh
+ ./sbt test container:start page:test container:stop
+```
 ### Running unit specs only
 
-`` ./sbt test
-
+``` 
+./sbt test
+```
 ### Running PageTests only
 
-`` ./sbt container:start page:test container:stop
+``` 
+./sbt container:start page:test container:stop
+```
 
 ## Installation for development ##
 
