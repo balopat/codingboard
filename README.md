@@ -14,7 +14,7 @@ First time prepare for that the maven downloads can take up to 10-15 minutes.
 
 Now open the site's [root page on localhost](http://localhost:8080/) in your browser.
 
-## Running all tests
+## Running tests
 
 ```sh
  ./sbt test container:start page:test container:stop
@@ -26,9 +26,21 @@ Now open the site's [root page on localhost](http://localhost:8080/) in your bro
 ```
 ### Running PageTests only
 
+You will need the Chromium driver for this to be in your */usr/bin/chromedriver*!
+Download it from [http://code.google.com/p/chromedriver/downloads/list](http://code.google.com/p/chromedriver/downloads/list)
+
 ``` 
 ./sbt container:start page:test container:stop
 ```
+
+### Code coverage
+
+``` 
+./sbt scct:test
+```
+
+Results are under target/scala-2.9.2/coverage-report/index.html (doesn't work with Chrome!)
+
 
 ## Installation for development ##
 
