@@ -26,7 +26,9 @@ Now open the site's [root page](http://localhost:8080/) in your browser.
 ```
 ### Running PageTests only
 
-``` ./sbt container:start page:test container:stop
+``` 
+./sbt container:start page:test container:stop
+```
 
 ## Installation for development ##
 
