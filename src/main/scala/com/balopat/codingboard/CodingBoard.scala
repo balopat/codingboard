@@ -13,7 +13,7 @@ case class CodingBoard (board: String, lengthOfSessionInMillis: Long, creationTi
 
   override def toString = board
   
-  def lastCodeSnippetId = if (codeSnippets.isEmpty)  "" else codeSnippets.last.id
+  def lastCodeSnippetId = if (codeSnippets.isEmpty)  "N/A" else codeSnippets.last.id
 
   def timeLeftInSeconds(now: Long = System.currentTimeMillis): Long = {
     ((lengthOfSessionInMillis) - (now - creationTimeInMillis))/1000

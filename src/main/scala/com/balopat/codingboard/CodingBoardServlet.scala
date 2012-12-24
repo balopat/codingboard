@@ -24,7 +24,7 @@ class CodingBoardServlet(boards: CodingBoards = CodingBoards.instance) extends C
     }
 
     post("/boards/:board/refresh") {
-       isBoardChangedSinceLastCodeSnippet(params("board"), params("lastCodeSnippet"))
+       isBoardChangedSinceLastCodeSnippet(params("board"), params("lastCodeSnippetId"))
     }
 
     get("/boards/:board/codesnippet") {
