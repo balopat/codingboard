@@ -11,6 +11,10 @@ textarea {
     line-height: 15px;
 }
 
+.title {
+    color: #08C;
+    cursor: pointer;
+}
 
 .clickable {
     cursor: pointer;
