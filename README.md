@@ -6,13 +6,13 @@ People join to a board (without registration) and post the newest version of the
 ## Build & Run ##
 
 ```sh
-$ cd sharethecode
+$ cd codingboard
 $ ./sbt
 > container:start
 ```
 First time prepare for that the maven downloads can take up to 10-15 minutes.
 
-Now open the site's [root page](http://localhost:8080/) in your browser.
+Now open the site's [root page on localhost](http://localhost:8080/) in your browser.
 
 ## Running all tests
 
