@@ -3,3 +3,7 @@ target/
 /.lib/
 *.swp
 *.log
+
+/.idea
+/.idea_modules
+*.iml
