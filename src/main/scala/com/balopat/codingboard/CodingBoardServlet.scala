@@ -20,7 +20,6 @@ class CodingBoardServlet(boards: CodingBoards = CodingBoards.instance) extends C
 
   post("/boards/:board/post") {
     postSnippetToBoard(params("board"), params("formtoken"), params("description"), params("code"), params("language"))
-
     redirect("/boards/" + params("board"))
   }
 
