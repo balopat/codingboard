@@ -11,7 +11,7 @@ class CodingBoardSpec extends Specification {
 
        "return empty String for "+ 
        "the lastCodeSnippet id if there are no codesnippets" in {
-          aBoard.lastCodeSnippetId should_==("")
+          aBoard.lastCodeSnippetId should_==("N/A")
        }
 
        "return the last codeSnippet id" in {
