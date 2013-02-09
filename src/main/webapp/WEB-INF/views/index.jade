@@ -3,6 +3,7 @@
 
 - attributes("title") = "CodingBoard"
 <script src="/js/jquery-1.7.2.js"></script>
+<script src="/js/codingBoard.js"></script>
 div(class="row span8 ")
     div#errorMessage
         p(class="text-error")=errorMessage
@@ -22,17 +23,8 @@ div(class="row span8 ")
                     td
                         span(id="time#{i}") #{board.timeLeftInSeconds(System.currentTimeMillis)} seconds left
                         <script type="text/javascript">
-                        |    var timeLeftInSeconds#{i} = parseInt('#{board.timeLeftInSeconds(System.currentTimeMillis)}'.replace(',',''))
-                        |    function updateTimer#{i}() {
-                        |       var mins = Math.floor(timeLeftInSeconds#{i}/60)
-                        |       var m = mins == 0 ? "" : mins + " minutes " 
-                        |       $('#time#{i}').html( m + timeLeftInSeconds#{i}%60 + " seconds") 
-                        |       if (timeLeftInSeconds#{i} <= 0)
-                        |           $('#time#{i}').html('This CodingBoard has expired!')
-                        |       timeLeftInSeconds#{i}--
-                        |       setTimeout('updateTimer#{i}()', 1000)
-                        |   }
-                        |    updateTimer#{i}();
+                        |    var timeLeftInSeconds#{i} = parseInt('#{board.timeLeftInSeconds(System.currentTimeMillis)}'.replace(',',''));
+                        |    scheduleTimerUpdate('time#{i}', timeLeftInSeconds#{i});
                         | </script>
 div(class="row span8")
     h2 What is a CodingBoard? 
