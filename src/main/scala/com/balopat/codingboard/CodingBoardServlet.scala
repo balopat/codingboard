@@ -1,41 +1,45 @@
 package com.balopat.codingboard
 
-class CodingBoardServlet(boards: CodingBoards = CodingBoards.instance) extends CodingBoardViewHelper 
-  {  
+class CodingBoardServlet(boards: CodingBoards = CodingBoards.instance) extends CodingBoardViewHelper {
 
-    get("/") {
-       index()
-    }
+  get("/") {
+    index()
+  }
 
-    post("/submitboard") {
-       createAndJoinBoard(params("board"), params("lengthOfSessionInMinutes")) 
-    }
+  post("/submitboard") {
+    createAndJoinBoard(params("board"), params("lengthOfSessionInMinutes"))
+  }
 
-    get("/boards/:board") {
-       joinCodingBoard(params("board"))
-    }
+  get("/boards/:board") {
+    joinCodingBoard(params("board"))
+  }
 
-    get("/boards/:board/post") {
-       joinCodingBoard(params("board"))
+  get("/createboard") {
+    contentType = null
+    findTemplate(requestPath) map { path =>
+      contentType = "text/html"
+      layoutTemplate(path)
     }
+  }
 
-    post("/boards/:board/post") {
-       postSnippetToBoard(params("board"), params("formtoken"), params("description"), params("code"), params("language"))
-    }
+  get("/boards/:board/post") {
+    joinCodingBoard(params("board"))
+  }
 
-    post("/boards/:board/refresh") {
-       isBoardChangedSinceLastCodeSnippet(params("board"), params("lastCodeSnippetId"))
-    }
+  post("/boards/:board/post") {
+    postSnippetToBoard(params("board"), params("formtoken"), params("description"), params("code"), params("language"))
+    redirect("/boards/" + params("board"))
+  }
 
-    get("/boards/:board/codesnippet") {
-       postCodeSnippetTo(params("board"))
-    }
-    
-    notFound {
-     contentType = null
-     findTemplate(requestPath) map { path =>
-        contentType = "text/html"
-        layoutTemplate(path)
-     } orElse serveStaticResource() getOrElse index()
+  post("/boards/:board/refresh") {
+    isBoardChangedSinceLastCodeSnippet(params("board"), params("lastCodeSnippetId"))
+  }
+
+  get("/boards/:board/codesnippet") {
+    codeSnippetFormFor(params("board"))
+  }
+
+  notFound {
+    serveStaticResource() getOrElse index()
   }
 }
