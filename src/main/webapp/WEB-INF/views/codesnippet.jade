@@ -6,45 +6,60 @@
 
 
 div
-    #editor
-        p blank
     form(method="POST" action="/boards/#{board}/post")
-    div
-        input(placeholder="Description`..." name="description" id="description")
-    div
-        select(name="language" id="language")
-            option(value="as3") ActionScript3
-            option(value="bash") Bash/shell
-            option(value="cf") ColdFusion
-            option(value="c-sharp") C#
-            option(value="cpp") C++/c
-            option(value="clojure") Clojure
-            option(value="css") CSS
-            option(value="delphi") Delphi
-            option(value="diff") Diff
-            option(value="erl") Erlang
-            option(value="groovy") Groovy
-            option(value="js") JavaScript
-            option(value="java") Java
-            option(value="jfx") JavaFX
-            option(value="perl") Perl
-            option(value="php") PHP
-            option(value="plain") Plain Text
-            option(value="ps") PowerShell
-            option(value="py") Python
-            option(value="rails") Ruby
-            option(value="scala") Scala
-            option(value="sql") SQL
-            option(value="vb") Visual Basic
-            option(value="xml") XML
-    div
-        button(class="btn btn-info btn-large" type="submit") Share your code
+        fieldset
+            legend 
+                h2 Share your code
+            input(type="hidden" name="formtoken" value="#{formtoken}" id="formtoken")
+            div
+                input(placeholder="Description`..." name="description" id="description")
+            #editor-wrap
+                #editor
+            input(type='hidden' name='code')
+            div
+                select(name="language" id="language")
+                    option(value="as3") ActionScript3
+                    option(value="bash") Bash/shell
+                    option(value="cf") ColdFusion
+                    option(value="c-sharp") C#
+                    option(value="cpp") C++/c
+                    option(value="clojure") Clojure
+                    option(value="css") CSS
+                    option(value="delphi") Delphi
+                    option(value="diff") Diff
+                    option(value="erl") Erlang
+                    option(value="groovy") Groovy
+                    option(value="js") JavaScript
+                    option(value="java") Java
+                    option(value="jfx") JavaFX
+                    option(value="perl") Perl
+                    option(value="php") PHP
+                    option(value="plain") Plain Text
+                    option(value="ps") PowerShell
+                    option(value="py") Python
+                    option(value="rails") Ruby
+                    option(value="scala") Scala
+                    option(value="sql") SQL
+                    option(value="vb") Visual Basic
+                    option(value="xml") XML
+            #submit-button
+                button(class="btn btn-info btn-large" type="submit") Share your code
 <script src="/js/jquery-1.7.2.js"></script>
 :javascript
     $('#description').focus()
     
 <script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 :javascript
-    editor = ace.edit("editor");
+    var editor = ace.edit("editor");
     editor.setTheme("ace/theme/twilight");
     editor.getSession().setMode("ace/mode/scala");
+    
+    $('#language').change(function() {
+        var new_mode = "ace/mode/" + $(this).val()
+        editor.getSession().setMode(new_mode);
+    });
+
+    $('#editor').closest('form').submit(function() {
+        var code = editor.getValue();
+        $('input[name=code]').val(code);
+    });
