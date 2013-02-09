@@ -14,6 +14,14 @@ class CodingBoardServlet(boards: CodingBoards = CodingBoards.instance) extends C
     joinCodingBoard(params("board"))
   }
 
+  get("/createboard") {
+    contentType = null
+    findTemplate(requestPath) map { path =>
+      contentType = "text/html"
+      layoutTemplate(path)
+    }
+  }
+
   get("/boards/:board/post") {
     joinCodingBoard(params("board"))
   }
