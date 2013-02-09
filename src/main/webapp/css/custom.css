@@ -1,0 +1,11 @@
+    #editor { 
+    	position: absolute;
+		height: 500px;
+		width: 90%
+    }    
+    
+    #editor-wrap { 
+        padding-top: 15px;
+    	position: relative;
+ 	    height: 500px;
+    }
