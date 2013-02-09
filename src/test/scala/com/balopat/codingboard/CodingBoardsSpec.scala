@@ -49,11 +49,9 @@ class CodingBoardsSpec extends Specification {
       fixture.boards.validate("t1", "1") should beEqualTo(Seq("boardNameError"->"Board already exists"))    
     }
 
-    
     "not allow empty lengthOfSession" in {
       fixture.boards.validate("test", "") should beEqualTo(Seq("lengthOfSessionError" -> "Length of session cannot be empty"))
     }
-
 
     "not allow non String lengthOfSession" in {
       fixture.boards.validate("test", "non-numeric") should beEqualTo(
@@ -61,7 +59,7 @@ class CodingBoardsSpec extends Specification {
     }
 
     "not return any error for correct values" in {
-      fixture.boards.validate("some baord", "1" ).isEmpty should beTrue 
+      fixture.boards.validate("some board", "1" ).isEmpty should beTrue
     }
 
     "remove the board after expiry" in {
@@ -78,14 +76,7 @@ class CodingBoardsSpec extends Specification {
         fixture.boards.create(name, fixture.lengthOfSessionInMillis, fixture.creationTimeInMillis)
     }
 
-    def cleanUpBoards() = {
-       fixture.boards.list.foreach ( b => {
-         fixture.boards.remove(b.board)
-        })
-    }
-
   }
-
 }
 
 
