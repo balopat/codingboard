@@ -6,6 +6,7 @@
     
     #editor-wrap { 
         padding-top: 15px;
-    	position: relative;
+        padding-bottom: 15px;
+        position: relative;
  	    height: 500px;
     }
