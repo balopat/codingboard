@@ -47,4 +47,8 @@ Results are under target/scala-2.9.2/coverage-report/index.html (doesn't work wi
 [Install Scalatra](http://www.scalatra.org/getting-started/installation.html)
 
 
+## Sbt command for refreshing resources when they change (including scala & template files)##
+
+~; copy-resources; aux-compile
+
 That's it :) 
