@@ -12,6 +12,8 @@ div(class="row span8 ")
     - if (!boards.isEmpty)
         h2 Current CodingBoards
 
+        input(type='text' placeholder='Type to filter boards...' name='filter' id='id')
+
         table(class="table table-hover striped")
             - var i = 0
             - for (board <- boards)

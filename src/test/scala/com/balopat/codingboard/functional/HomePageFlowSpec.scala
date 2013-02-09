@@ -1,9 +1,9 @@
-package com.balopat.codingboard
+package com.balopat.codingboard.functional
 
 import org.scalatest._
 import org.scalatest.selenium.Chrome
 
-class HomePage extends FlatSpec with ShouldMatchers with Chrome {
+class HomePageFlowSpec extends FlatSpec with ShouldMatchers with Chrome {
 
   "The CodingBoard homepage" should "have the correct title" in {
     go to ("http://localhost:8080/")
