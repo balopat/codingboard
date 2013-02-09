@@ -29,6 +29,9 @@
 <script type="text/javascript" src="/js/shBrushXml.js"></script>
 <script type="text/javascript" src="/js/shBrushClojure.js"></script>
 
+<script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+
+
 
 link(href="/css/shCore.css" rel="stylesheet" type="text/css")/
 link(href="/css/shThemeMidnight.css" rel="stylesheet" type="text/css")/
@@ -45,14 +48,21 @@ div(class="container")
             div
                 b= codeSnippet.description
             div
-                pre(class="brush: #{codeSnippet.language}")= "\n" + codeSnippet.code
+                #editor(class='#{codeSnippet.id}')
+            :javascript
+                var editor = ace.edit('#editor #{codeSnippet.id}');
+                var languageMode = "ace/mode/#{codeSnippet.language}"
+                editor.setValue("#{codeSnippet.code}");
+                editor.getSession().setMode(languageMode);
             div
             i= codeSnippet.formattedTime
 
-<script type="text/javascript">
-| SyntaxHighlighter.all();
-| var lastCodeSnippetId = '#{board.lastCodeSnippetId}';
-| var board = '#{board.board}';
-|</script>
+
+//    <script type="text/javascript">
+//    | SyntaxHighlighter.all();
+//    | var lastCodeSnippetId = '#{board.lastCodeSnippetId}';
+//    | var board = '#{board.board}';
+//    |</script>
 <script src="/js/jquery-1.7.2.js"></script>
 <script src="/js/application.js"></script>
+
