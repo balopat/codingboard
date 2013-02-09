@@ -2,6 +2,9 @@
 -@val formtoken: String
 - attributes("title") = "CodingBoard- Share your code"
 
+
+
+
 div
     form(method="POST" action="/boards/#{board}/post")
         fieldset
@@ -9,9 +12,10 @@ div
                 h2 Share your code
             input(type="hidden" name="formtoken" value="#{formtoken}" id="formtoken")
             div
-                input(placeholder="Description..." name="description" id="description")
-            div
-                textarea(value="bla" name="code" id="code" rows="25" width="100%")
+                input(placeholder="Description`..." name="description" id="description")
+            #editor-wrap
+                #editor
+            input(type='hidden' name='code')
             div
                 select(name="language" id="language")
                     option(value="as3") ActionScript3
@@ -38,8 +42,24 @@ div
                     option(value="sql") SQL
                     option(value="vb") Visual Basic
                     option(value="xml") XML
-            div
+            #submit-button
                 button(class="btn btn-info btn-large" type="submit") Share your code
 <script src="/js/jquery-1.7.2.js"></script>
 :javascript
     $('#description').focus()
+    
+<script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+:javascript
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/twilight");
+    editor.getSession().setMode("ace/mode/scala");
+    
+    $('#language').change(function() {
+        var new_mode = "ace/mode/" + $(this).val()
+        editor.getSession().setMode(new_mode);
+    });
+
+    $('#editor').closest('form').submit(function() {
+        var code = editor.getValue();
+        $('input[name=code]').val(code);
+    });
