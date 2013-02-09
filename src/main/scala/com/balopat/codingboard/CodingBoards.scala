@@ -52,9 +52,9 @@ class CodingBoards {
 
   def validate(board: String, lengthOfSession: String) = {
     Seq("boardNameError" -> 
-      boardNameValidations.filter(_._2(board)).map(_._1).firstOption.getOrElse(""),
+      boardNameValidations.filter(_._2(board)).map(_._1).headOption.getOrElse(""),
      "lengthOfSessionError" -> 
-      lengthOfSessionValidations.filter(_._2(lengthOfSession)).map(_._1).firstOption.getOrElse("")).filter(!_._2.equals(""))
+      lengthOfSessionValidations.filter(_._2(lengthOfSession)).map(_._1).headOption.getOrElse("")).filter(!_._2.equals(""))
   }
 }
 
