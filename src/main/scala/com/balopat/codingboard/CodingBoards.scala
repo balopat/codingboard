@@ -4,6 +4,8 @@ import scala.collection.mutable.Map
 import scala.collection.immutable.List
 import actors.{Actor,TIMEOUT}
 import Actor._
+import java.util.concurrent.TimeUnit
+import util.control.Exception._
 
 object CodingBoards  {
   def instance = new CodingBoards() 
@@ -37,16 +39,16 @@ class CodingBoards {
   private val lengthOfSessionValidations = List[(String, String => Boolean)](
       ("Length of session cannot be empty", (lengthOfSession: String) => 
         lengthOfSession == null || lengthOfSession.isEmpty),
-      ("Please provide an integer value for length of session!", (lengthOfSession: String) => 
-        {
-          try{
-              lengthOfSession.toInt
-              false
-          } catch {
-            case _: NumberFormatException => true
-          }
-        }) 
-    )
+      ("Please provide an integer value for length of session!", (lengthOfSession: String) =>
+        failAsValue(classOf[NumberFormatException]) (true) {
+          lengthOfSession.toInt
+          false
+      }),
+      ("Please provide a session length under 24 hours", (lengthOfSession: String) =>
+        failAsValue(classOf[NumberFormatException]) (false) {
+          lengthOfSession.toInt >= TimeUnit.HOURS.toMinutes(24) + 1
+      })
+  )
 
   def validate(board: String, lengthOfSession: String) = {
     Seq(

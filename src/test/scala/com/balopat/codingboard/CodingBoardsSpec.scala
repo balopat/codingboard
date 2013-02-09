@@ -1,6 +1,7 @@
 package com.balopat.codingboard
 
 import org.specs2.mutable._
+import java.util.concurrent.TimeUnit
 
 class CodingBoardsSpec extends Specification {
 
@@ -40,7 +41,8 @@ class CodingBoardsSpec extends Specification {
       
       fixture.boards.list.map(_.board) must contain ("t1", "t2", "t3")
     }
-  
+
+
     "not allow empty boardname" in {
       fixture.boards.validate("", "1") should beEqualTo(Seq("boardNameError"->"Board name cannot be empty"))    
     }
@@ -49,14 +51,24 @@ class CodingBoardsSpec extends Specification {
       fixture.boards.validate("t1", "1") should beEqualTo(Seq("boardNameError"->"Board already exists"))    
     }
 
-    "not allow empty lengthOfSession" in {
+
+    "not allow empty input as session length" in {
       fixture.boards.validate("test", "") should beEqualTo(Seq("lengthOfSessionError" -> "Length of session cannot be empty"))
     }
 
-    "not allow non String lengthOfSession" in {
-      fixture.boards.validate("test", "non-numeric") should beEqualTo(
+    "only allow a number as session length" in {
+      val invalidInput = "non-numeric"
+      fixture.boards.validate("test", invalidInput) should beEqualTo(
             Seq("lengthOfSessionError" -> "Please provide an integer value for length of session!"))
     }
+
+    "only allow session length <= 24 hours" in {
+      fixture.boards.validate("test", TimeUnit.HOURS.toMinutes(24).toString) should beEqualTo(Seq())
+
+      fixture.boards.validate("test", (TimeUnit.HOURS.toMinutes(24) + 1).toString) should beEqualTo(
+        Seq("lengthOfSessionError" -> "Please provide a session length under 24 hours"))
+    }
+
 
     "not return any error for correct values" in {
       fixture.boards.validate("some board", "1" ).isEmpty should beTrue
