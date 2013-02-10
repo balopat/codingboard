@@ -14,6 +14,8 @@ form(method="POST" action="submitboard")
         div
             p(class="text-error")=boardNameError
         div
+            input(type="checkbox" name="private" id="private" value="")
+        div
             input(placeholder="Lifetime of your board in minutes" name="lengthOfSessionInMinutes" id="lengthOfSessionInMinutes" value="#{lengthOfSession}" size="50")
         div
             p(class="text-error")=lengthOfSessionError

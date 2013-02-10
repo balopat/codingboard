@@ -49,11 +49,12 @@ div(class="container")
                 b= codeSnippet.description
             div
                 #editor(class='#{codeSnippet.id}')
-            :javascript
-                var editor = ace.edit('#editor #{codeSnippet.id}');
-                var languageMode = "ace/mode/#{codeSnippet.language}"
-                editor.setValue("#{codeSnippet.code}");
-                editor.getSession().setMode(languageMode);
+            <script type="text/javascript">
+            |    var editor = ace.edit('#editor #{codeSnippet.id}');
+            |    var languageMode = "ace/mode/#{codeSnippet.language}"
+            |    editor.setValue("#{codeSnippet.code}");
+            |    editor.getSession().setMode(languageMode);
+            | </script>
             div
             i= codeSnippet.formattedTime
 

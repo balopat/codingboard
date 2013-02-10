@@ -51,13 +51,13 @@ class CodingBoardViewHelper(boards: CodingBoards = CodingBoards.instance) extend
        )
     }
 
-    def createAndJoinBoard(board: String, lengthOfSession: String) = { 
+    def createAndJoinBoard(board: String, lengthOfSession: String, isPrivate: Boolean) = { 
          val validationErrors = boards.validate(board, lengthOfSession)
          if (!validationErrors.isEmpty) {
              contentType="text/html"
              jade("createboard", (validationErrors :+ ("board"->board) :+ ("lengthOfSession" -> lengthOfSession)).toArray :_* )
          } else {
-           joinCodingBoard(boards.create(board, lengthOfSession.toInt * 60000, System.currentTimeMillis).url)
+           joinCodingBoard(boards.create(board, lengthOfSession.toInt * 60000, System.currentTimeMillis, isPrivate).url)
          }   
     }  
   

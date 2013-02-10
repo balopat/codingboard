@@ -11,7 +11,7 @@ class CodingBoardSpec extends Specification {
 
        "return empty String for "+ 
        "the lastCodeSnippet id if there are no codesnippets" in {
-          aBoard.lastCodeSnippetId should_==("")
+          aBoard.lastCodeSnippetId should_==("N/A")
        }
 
        "return the last codeSnippet id" in {
@@ -44,7 +44,8 @@ class CodingBoardSpec extends Specification {
        def aBoard() = {
          val lifeTimeInMinutes =  500000
          val creationTimeInMillis = 1000
-         new CodingBoard("board", lifeTimeInMinutes, creationTimeInMillis)
+         val isPrivate = false
+         new CodingBoard("board", lifeTimeInMinutes, creationTimeInMillis, isPrivate)
        }
 
 

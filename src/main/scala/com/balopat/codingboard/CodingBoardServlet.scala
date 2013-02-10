@@ -8,7 +8,8 @@ class CodingBoardServlet(boards: CodingBoards = CodingBoards.instance) extends C
     }
 
     post("/submitboard") {
-       createAndJoinBoard(params("board"), params("lengthOfSessionInMinutes")) 
+       val isPrivate = params.get("private").isDefined
+       createAndJoinBoard(params("board"), params("lengthOfSessionInMinutes"), isPrivate ) 
     }
 
     get("/boards/:board") {
