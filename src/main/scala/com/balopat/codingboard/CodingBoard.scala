@@ -1,7 +1,12 @@
 package com.balopat.codingboard
 
 
-case class CodingBoard (board: String, lengthOfSessionInMillis: Long, creationTimeInMillis: Long) {
+case class CodingBoard (
+    board: String, 
+    lengthOfSessionInMillis: Long, 
+    creationTimeInMillis: Long,
+    isPrivate: Boolean = false 
+) { 
 
   var codeSnippets = List[CodeSnippet]()
   

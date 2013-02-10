@@ -8,7 +8,8 @@ class CodingBoardsSpec extends Specification {
   val fixture = new {
      val boards = new CodingBoards()
      val lengthOfSessionInMillis = 10000   
-     val creationTimeInMillis: Long = 1000
+     val creationTimeInMillis = 1000l
+     val isPrivate = false
   }
 
 
@@ -41,8 +42,23 @@ class CodingBoardsSpec extends Specification {
       
       fixture.boards.list.map(_.board) must contain ("t1", "t2", "t3")
     }
-
-
+    
+    "Private boards should not be included in 'list'" in {
+      aTestCodingBoard("p1")
+      aTestCodingBoard("p2",true)
+      
+      val boards = fixture.boards.list.map(_.board)
+      
+      boards must contain ("p1")
+      boards must not contain ("p2")
+    }
+  
+    "Private boards should available when ID is known" in {
+      aTestCodingBoard("t2",true)
+      
+      fixture.boards.get("t2") must not(throwA[NoSuchElementException])
+    }
+  
     "not allow empty boardname" in {
       fixture.boards.validate("", "1") should beEqualTo(Seq("boardNameError"->"Board name cannot be empty"))    
     }
@@ -75,7 +91,7 @@ class CodingBoardsSpec extends Specification {
     }
 
     "remove the board after expiry" in {
-      fixture.boards.create("expiring board", 100, 1000)
+      fixture.boards.create("expiring board", 100, 1000, false)
       Thread.sleep(101)
       fixture.boards.exists("expiring board") should beFalse
     }
@@ -84,8 +100,8 @@ class CodingBoardsSpec extends Specification {
       CodingBoards.instance should not beNull
     }
 
-    def aTestCodingBoard(name: String = "testingCodingBoard")  = { 
-        fixture.boards.create(name, fixture.lengthOfSessionInMillis, fixture.creationTimeInMillis)
+    def aTestCodingBoard(name: String = "testingCodingBoard", isPrivate: Boolean = fixture.isPrivate)  = { 
+        fixture.boards.create(name, fixture.lengthOfSessionInMillis, fixture.creationTimeInMillis, isPrivate)
     }
 
   }

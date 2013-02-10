@@ -15,8 +15,8 @@ class CodingBoards {
 
   private val boards = Map[String, CodingBoard]()
 
-  def create(boardName:String, lengthOfSessionInMillis: Long, creationTimeInMillis: Long) = {
-    val board = new CodingBoard(boardName, lengthOfSessionInMillis, creationTimeInMillis)
+  def create(boardName:String, lengthOfSessionInMillis: Long, creationTimeInMillis: Long, isPrivate: Boolean) = {
+    val board = new CodingBoard(boardName, lengthOfSessionInMillis, creationTimeInMillis, isPrivate)
     boards += (board.url -> board)
     actor {
       receiveWithin(lengthOfSessionInMillis) {
@@ -28,7 +28,13 @@ class CodingBoards {
 
   def get(boardURL: String) =  boards(boardURL)
   def exists(boardURL: String) = boards.contains(boardURL)
-  def list = boards.values
+  
+  /**
+   * List of all non-private boards. 
+   * This means private boards can only accessed if you know their id. Could be done in controller.
+   */
+  def list = boards.values filter ( !_.isPrivate ) 
+  
   def remove(boardURL: String) = boards.remove(boardURL)
 
   private val boardNameValidations = List[(String, String => Boolean)](
