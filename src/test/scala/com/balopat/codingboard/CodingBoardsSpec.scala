@@ -1,6 +1,7 @@
 package com.balopat.codingboard
 
 import org.specs2.mutable._
+import java.util.concurrent.TimeUnit
 
 class CodingBoardsSpec extends Specification {
 
@@ -19,18 +20,19 @@ class CodingBoardsSpec extends Specification {
     }
 
     "say the board exists after created" in {
-      aTestCodingBoard("testCodingBoard")
-      fixture.boards.exists("testcodingboard") should beEqualTo(true)
+      aTestCodingBoard("testCodingBoard1")
+      fixture.boards.exists("testcodingboard1") should beEqualTo(true)
     }
 
     "can return a board after created" in {
-      aTestCodingBoard("testCodingBoard")
-      fixture.boards.get("testcodingboard") must beAnInstanceOf[CodingBoard]
+      aTestCodingBoard("testCodingBoard2")
+      fixture.boards.get("testcodingboard2") must beAnInstanceOf[CodingBoard]
     }
 
     "not return a board when removed" in {
-      fixture.boards.remove("testcodingboard")
-      fixture.boards.exists("non existent board") should beEqualTo(false) 
+      aTestCodingBoard("testCodingBoard3")
+      fixture.boards.remove("testcodingboard3")
+      fixture.boards.exists("testcodingboard3") should beEqualTo(false)
     }
 
     "returns the name of the boards" in {
@@ -65,19 +67,27 @@ class CodingBoardsSpec extends Specification {
       fixture.boards.validate("t1", "1") should beEqualTo(Seq("boardNameError"->"Board already exists"))    
     }
 
-    
-    "not allow empty lengthOfSession" in {
+
+    "not allow empty input as session length" in {
       fixture.boards.validate("test", "") should beEqualTo(Seq("lengthOfSessionError" -> "Length of session cannot be empty"))
     }
 
-
-    "not allow non String lengthOfSession" in {
-      fixture.boards.validate("test", "non-numeric") should beEqualTo(
+    "only allow a number as session length" in {
+      val invalidInput = "non-numeric"
+      fixture.boards.validate("test", invalidInput) should beEqualTo(
             Seq("lengthOfSessionError" -> "Please provide an integer value for length of session!"))
     }
 
+    "only allow session length <= 24 hours" in {
+      fixture.boards.validate("test", TimeUnit.HOURS.toMinutes(24).toString) should beEqualTo(Seq())
+
+      fixture.boards.validate("test", (TimeUnit.HOURS.toMinutes(24) + 1).toString) should beEqualTo(
+        Seq("lengthOfSessionError" -> "Please provide a session length under 24 hours"))
+    }
+
+
     "not return any error for correct values" in {
-      fixture.boards.validate("some baord", "1" ).isEmpty should beTrue 
+      fixture.boards.validate("some board", "1" ).isEmpty should beTrue
     }
 
     "remove the board after expiry" in {
@@ -94,14 +104,7 @@ class CodingBoardsSpec extends Specification {
         fixture.boards.create(name, fixture.lengthOfSessionInMillis, fixture.creationTimeInMillis, isPrivate)
     }
 
-    def cleanUpBoards() = {
-       fixture.boards.list.foreach ( b => {
-         fixture.boards.remove(b.board)
-        })
-    }
-
   }
-
 }
 
 
