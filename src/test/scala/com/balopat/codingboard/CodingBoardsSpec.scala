@@ -4,6 +4,7 @@ import org.specs2.mutable._
 import java.util.concurrent.TimeUnit
 
 class CodingBoardsSpec extends Specification {
+  sequential
 
   val fixture = new {
      val boards = new CodingBoards()
