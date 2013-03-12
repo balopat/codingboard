@@ -44,7 +44,8 @@ class CodingBoardSpec extends Specification {
        def aBoard() = {
          val lifeTimeInMinutes =  500000
          val creationTimeInMillis = 1000
-         new CodingBoard("board", lifeTimeInMinutes, creationTimeInMillis)
+         val isPrivate = false
+         new CodingBoard("board", lifeTimeInMinutes, creationTimeInMillis, isPrivate)
        }
 
 

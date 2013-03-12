@@ -6,9 +6,10 @@ class CodingBoardServlet(boards: CodingBoards = CodingBoards.instance) extends C
     index()
   }
 
-  post("/submitboard") {
-    createAndJoinBoard(params("board"), params("lengthOfSessionInMinutes"))
-  }
+    post("/submitboard") {
+       val isPrivate = params.get("private").isDefined
+       createAndJoinBoard(params("board"), params("lengthOfSessionInMinutes"), isPrivate ) 
+    }
 
   get("/boards/:board") {
     joinCodingBoard(params("board"))
