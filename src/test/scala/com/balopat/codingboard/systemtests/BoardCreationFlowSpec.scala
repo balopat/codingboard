@@ -13,24 +13,26 @@ class BoardCreationFlowSpec extends FlatSpec with ShouldMatchers with Chrome {
 
   "The CodingBoard homepage" should "have the correct title" in {
     go to homePage
-    title should be("CodingBoard")
+    pageTitle should be("CodingBoard")
   }
 
   "The CodingBoard homepage" should "have a button to create board" in {
     click on id("goto_create_board")
-    title should be("CodingBoard - Create Board")
+    pageTitle should be("CodingBoard - Create Board")
   }
 
   "The CreateBoard page " should "have the correct title" in {
     go to ("http://localhost:8080/createboard")
-    title should be("CodingBoard - Create Board")
+    pageTitle should be("CodingBoard - Create Board")
   }
 
-  "The CreateBoard page " should "lead to the Test Board when submitted" in {
+  "The CreateBoard page " should "lead to the Test Board when submitted and have a filter field" in {
     textField("board").value = "Test Board"
-    textField("lengthOfSessionInMinutes").value = "2"
+    textField("lengthOfSessionInMinutes").value = "1"
     click on id("submit")
-    title should be("CodingBoard - Test Board")
+    pageTitle should be("CodingBoard - Test Board")
+    go to homePage
+    textField("filter").value should be ("")
     close()
   }
 }

@@ -13,13 +13,13 @@ div(class="row span8 ")
     - if (!boards.isEmpty)
         h2 Current CodingBoards
 
-        input(type='text' placeholder='Type to filter boards...' name='filter' id='id')
+        input(type='text' placeholder='Type to filter boards...' name='filter' id='filter')
 
         table(class="table table-hover striped")
             - var i = 0
             - for (board <- boards)
                 tr(class="clickable" onclick="window.location='/boards/#{board.url}';")
-                    td
+                    td(class="board-name")
                         =board
                         - i+=1
                     td
