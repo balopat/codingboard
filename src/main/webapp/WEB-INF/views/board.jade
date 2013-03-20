@@ -35,7 +35,13 @@ link(href="/css/shThemeMidnight.css" rel="stylesheet" type="text/css")/
 
 div(class="container")
     div(class="row span8")
-        h2= board
+        h2(id="title")
+            span= board
+            - if (board.isPrivate)
+                span(class="label label-important") Private
+                code(style='float:right')
+                    :javascript
+                        document.write(window.location)
         br
     div(class="row span8 offset3")
         button(class="btn btn-info btn-large" onclick="window.location='/boards/#{board.url}/codesnippet'") share a codesnippet 
