@@ -4,6 +4,7 @@ import org.scalatest._
 import concurrent.{AsyncAssertions, Eventually}
 import org.scalatest.selenium.Chrome
 import org.scalatest.time.SpanSugar._
+import org.scalatest
 
 class BoardCreationFlowSpec extends FlatSpec with ShouldMatchers with Eventually with AsyncAssertions with Chrome {
 
@@ -13,11 +14,12 @@ class BoardCreationFlowSpec extends FlatSpec with ShouldMatchers with Eventually
 
   val homePage = new HomePage()
 
-  def createBoard(boardName: String){
+  def createBoard(boardName: String, isPrivate: Boolean = false){
     go to homePage
     click on "goto_create_board"
     textField("board").value = boardName
     textField("lengthOfSessionInMinutes").value = "1"
+    if(isPrivate) checkbox("private").select()
     click on "submit"
   }
 
@@ -56,6 +58,12 @@ class BoardCreationFlowSpec extends FlatSpec with ShouldMatchers with Eventually
     }
     textField("filter").value = ""
     findAll(new CssSelectorQuery("table.table.table-hover.striped td.board-name")).length shouldBe 4
+  }
+
+  "The CreateBoard page " should "lead to the Test Board and show the private URL" in {
+    createBoard("Private Board", true)
+    find(new CssSelectorQuery("code")).get.text shouldBe "http://localhost:8080/boards/private_board"
+    currentUrl shouldBe "http://localhost:8080/boards/private_board"
     close()
   }
 
