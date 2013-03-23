@@ -33,6 +33,8 @@ libraryDependencies ++= Seq(
 "org.seleniumhq.selenium" % "selenium-firefox-driver" % "2.24.1" % "test",
 "org.scalatest" %% "scalatest" % "2.0.M5" % "test")
 
+parallelExecution in Test := false
+
 testOptions in PageTest := Seq(Tests.Filter(s => s.endsWith("FlowSpec")))
 
 testOptions in Test := Seq(Tests.Filter(s => !s.endsWith("FlowSpec")))

@@ -11,3 +11,13 @@ function scheduleTimerUpdate(timerLabelId, timeLeftInSeconds) {
         setTimeout(function(){ scheduleTimerUpdate(timerLabelId, timeLeftInSeconds - 1) }, 1000);
     }
 }
+$(document).ready(function(){
+    $("#filter").keyup(function(){
+        $("tr.clickable").show();
+        var filterText = $(this).val() || "";
+        if(filterText){
+            $("tr.clickable").hide();
+            $("tr.clickable > td.board-name").filter(":contains(" + filterText +")").parent().show();
+        }
+    });
+});
