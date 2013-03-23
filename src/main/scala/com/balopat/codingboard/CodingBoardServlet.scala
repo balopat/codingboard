@@ -6,10 +6,11 @@ class CodingBoardServlet(boards: CodingBoards = CodingBoards.instance) extends C
     index()
   }
 
-    post("/submitboard") {
-       val isPrivate = params.get("private").isDefined
-       createAndJoinBoard(params("board"), params("lengthOfSessionInMinutes"), isPrivate ) 
-    }
+  post("/submitboard") {
+     val isPrivate = params.get("private").isDefined
+     createAndJoinBoard(params("board"), params("lengthOfSessionInMinutes"), isPrivate)
+     redirect("/boards/" + url(params("board")))
+  }
 
   get("/boards/:board") {
     joinCodingBoard(params("board"))
@@ -43,4 +44,9 @@ class CodingBoardServlet(boards: CodingBoards = CodingBoards.instance) extends C
   notFound {
     serveStaticResource() getOrElse index()
   }
+
+  private def url(url: String) = {
+    url.toLowerCase.replaceAll("[^a-z|0-9]","_")
+  }
+
 }
