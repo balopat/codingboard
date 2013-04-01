@@ -64,6 +64,14 @@ class BoardCreationFlowSpec extends FlatSpec with ShouldMatchers with Eventually
     createBoard("Private Board", true)
     find(new CssSelectorQuery("code")).get.text shouldBe "http://localhost:8080/boards/private_board"
     currentUrl shouldBe "http://localhost:8080/boards/private_board"
+  }
+
+  "The CodingBoard contributors page" should "have the correct title and at least one contributor" in {
+    go to ("http://localhost:8080/contributors")
+    pageTitle should be("The CodingBoard Community")
+    eventually(timeout(5 seconds), interval(50 millis)) {
+      findAll(new CssSelectorQuery("div#contributors span")).length should be > (0)
+    }
     close()
   }
 
