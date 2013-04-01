@@ -5,6 +5,10 @@ class CodingBoardServlet(boards: CodingBoards = CodingBoards.instance) extends C
   get("/") {
     index()
   }
+  get("/contributors") {
+    contentType = "text/html"
+    jade("contributors")
+  }
 
   post("/submitboard") {
      val isPrivate = params.get("private").isDefined
