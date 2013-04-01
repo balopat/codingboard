@@ -18,7 +18,7 @@ $(document).ready(function(){
         var contributorsHTML = "";
 
         for (var i=0; i<contributors.length; i++){
-            names += wrapContributor(contributors[i])
+            contributorsHTML += wrapContributor(contributors[i])
         }
         $('#contributors').html(contributorsHTML)
     });
