@@ -14,13 +14,13 @@ function wrapContributor(contributor) {
 }
 
 $(document).ready(function(){
-    $.getJSON("https://api.github.com/repos/balopat/codingboard/contributors", null, function(data){
-        var names = "";
+    $.getJSON("https://api.github.com/repos/balopat/codingboard/contributors", null, function(contributors){
+        var contributorsHTML = "";
 
-        for (var i=0; i<data.length; i++){
-            names += wrapContributor(data[i])
+        for (var i=0; i<contributors.length; i++){
+            names += wrapContributor(contributors[i])
         }
-        $('#contributors').html(names)
+        $('#contributors').html(contributorsHTML)
     });
 
 });
