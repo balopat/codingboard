@@ -10,15 +10,13 @@ function wrapContributor(contributor) {
                         "Number of contributions:"+ contributor.contributions +
                     "</div>" +
             "</span>"
-
 }
 
 $(document).ready(function(){
-    $.getJSON("https://api.github.com/repos/balopat/codingboard/contributors", null, function(contributors){
+    $.getJSON("https://api.github.com/repos/balopat/codingboard/contributors?callback=?", function(contributors){
         var contributorsHTML = "";
-
-        for (var i=0; i<contributors.length; i++){
-            contributorsHTML += wrapContributor(contributors[i])
+        for (var i=0; i<contributors.data.length; i++){
+            contributorsHTML += wrapContributor(contributors.data[i])
         }
         $('#contributors').html(contributorsHTML)
     });
