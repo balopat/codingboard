@@ -13,7 +13,6 @@ class CodingBoardsSpec extends Specification {
      val isPrivate = false
   }
 
-
   "CodingBoards" should {
 
     "initially say that a board does not exist" in {
