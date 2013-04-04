@@ -1,6 +1,10 @@
+function url(boardName) {
+    return boardName.toLowerCase().replace(/[^a-z|0-9]/,"_");
+}
+
 function updateIfRequired(){
     $.ajax( {
-        url: "/boards/" + board + "/refresh",
+        url: "/boards/" + url(board) + "/refresh",
         data: {
             lastCodeSnippetId: lastCodeSnippetId
         },
