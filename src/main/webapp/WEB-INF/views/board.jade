@@ -28,7 +28,8 @@
 <script type="text/javascript" src="/js/shBrushVb.js"></script>
 <script type="text/javascript" src="/js/shBrushXml.js"></script>
 <script type="text/javascript" src="/js/shBrushClojure.js"></script>
-
+<script type="text/javascript" src="/js/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="/js/codingBoard.js"></script>
 
 link(href="/css/shCore.css" rel="stylesheet" type="text/css")/
 link(href="/css/shThemeMidnight.css" rel="stylesheet" type="text/css")/
@@ -42,6 +43,11 @@ div(class="container")
                 code(style='float:right')
                     :javascript
                         document.write(window.location)
+        span(id="time-left") #{board.timeLeftInSeconds(System.currentTimeMillis)} seconds left
+        <script type="text/javascript">
+        |    var timeLeftInSeconds = parseInt('#{board.timeLeftInSeconds(System.currentTimeMillis)}'.replace(',',''));
+        |    scheduleTimerUpdate('time-left', timeLeftInSeconds);
+        | </script>
         br
     div(class="row span8 offset3")
         button(class="btn btn-info btn-large" onclick="window.location='/boards/#{board.url}/codesnippet'") share a codesnippet 
