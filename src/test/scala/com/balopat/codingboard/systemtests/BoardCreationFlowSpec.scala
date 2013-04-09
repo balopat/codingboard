@@ -38,11 +38,10 @@ class BoardCreationFlowSpec extends FlatSpec with ShouldMatchers with Eventually
     pageTitle should be("CodingBoard - Create Board")
   }
 
-  "The CreateBoard page " should "lead to the Test Board when submitted and have a filter field" in {
+  "The CreateBoard page " should "lead to the Test Board when submitted" in {
     createBoard("Test Board")
     pageTitle should be("CodingBoard - Test Board")
-    go to homePage
-    textField("filter").value should be ("")
+    currentUrl should endWith("/boards/test_board")
   }
 
   "The CodingBoard homepage" should "display only the boards matching the filter expression" in {
@@ -51,6 +50,7 @@ class BoardCreationFlowSpec extends FlatSpec with ShouldMatchers with Eventually
     createBoard("Different Board")
     go to ("http://localhost:8080/")
     findAll(new CssSelectorQuery("table.table.table-hover.striped td.board-name")).length shouldBe 4
+    textField("filter").value should be ("")
     textField("filter").value = "Different"
     eventually(timeout(1 seconds), interval(5 millis)) {
       findAll(new CssSelectorQuery("table.table.table-hover.striped tr.clickable[style='display: table-row;']")).length shouldBe 1
@@ -63,7 +63,6 @@ class BoardCreationFlowSpec extends FlatSpec with ShouldMatchers with Eventually
   "The CreateBoard page " should "lead to the Test Board and show the private URL" in {
     createBoard("Private Board", true)
     find(new CssSelectorQuery("code")).get.text shouldBe "http://localhost:8080/boards/private_board"
-    currentUrl shouldBe "http://localhost:8080/boards/private_board"
   }
 
   "The CodingBoard contributors page" should "have the correct title and at least one contributor" in {
