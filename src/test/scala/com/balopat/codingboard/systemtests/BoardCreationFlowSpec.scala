@@ -4,7 +4,6 @@ import org.scalatest._
 import concurrent.{AsyncAssertions, Eventually}
 import org.scalatest.selenium.Chrome
 import org.scalatest.time.SpanSugar._
-import org.scalatest
 
 class BoardCreationFlowSpec extends FlatSpec with ShouldMatchers with Eventually with AsyncAssertions with Chrome {
 
@@ -18,7 +17,7 @@ class BoardCreationFlowSpec extends FlatSpec with ShouldMatchers with Eventually
     go to homePage
     click on "goto_create_board"
     textField("board").value = boardName
-    textField("lengthOfSessionInMinutes").value = "1"
+    textField("lengthOfSessionInMinutes").value = "2"
     if(isPrivate) checkbox("private").select()
     click on "submit"
   }
@@ -42,6 +41,7 @@ class BoardCreationFlowSpec extends FlatSpec with ShouldMatchers with Eventually
     createBoard("Test Board")
     pageTitle should be("CodingBoard - Test Board")
     currentUrl should endWith("/boards/test_board")
+    find(new CssSelectorQuery("span#time-left")).get.text should (include("minutes") and include("seconds"))
   }
 
   "The CodingBoard homepage" should "display only the boards matching the filter expression" in {
