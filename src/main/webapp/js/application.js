@@ -27,7 +27,35 @@ function updateIfRequired(){
         }
         setTimeout('updateIfRequired()', 2000);
     })
-
 }
 
-updateIfRequired();
+function enableTheme(themeName) {
+    var link = $('#theme-link-' + themeName.toLowerCase());
+    $('link[title^=theme-]').prop('disabled', true);
+    $('link[title=theme-' + themeName.toLowerCase() + ']').prop('disabled', false);
+
+    $('#themes a')
+        .prop('disabled', false)
+        .css('color', '')
+        .css('text-decoration', '');
+    link.prop('disabled', true)
+        .css('color', '#ccc')
+        .css('text-decoration', 'none');
+}
+
+$(document).ready(function() {
+    var themes = ['Default', 'Django', 'Eclipse', 'Emacs', 'FadeToGrey', 'MDUltra', 'Midnight', 'RDark'];
+    var themesElement = $('#themes');
+    $.each(themes, function(i, theme) {
+        var link = $('<a href="#">').attr('id', 'theme-link-' + theme.toLowerCase()).text(theme);
+        link.click(function() {
+            enableTheme(theme);
+        });
+        themesElement.append(link).append(' ');
+    });
+});
+
+$(document).ready(function() {
+    updateIfRequired();
+    enableTheme('Midnight');
+});
