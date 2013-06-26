@@ -32,7 +32,14 @@
 <script type="text/javascript" src="/js/codingBoard.js"></script>
 
 link(href="/css/shCore.css" rel="stylesheet" type="text/css")/
-link(href="/css/shThemeMidnight.css" rel="stylesheet" type="text/css")/
+link(href="/css/shThemeDefault.css" title="theme-default" disabled="disabled" rel="stylesheet" type="text/css")/
+link(href="/css/shThemeDjango.css" title="theme-django" disabled="disabled" rel="stylesheet" type="text/css")/
+link(href="/css/shThemeEclipse.css" title="theme-eclipse" disabled="disabled" rel="stylesheet" type="text/css")/
+link(href="/css/shThemeEmacs.css" title="theme-emacs" disabled="disabled" rel="stylesheet" type="text/css")/
+link(href="/css/shThemeFadeToGrey.css" title="theme-fadetogrey" disabled="disabled" rel="stylesheet" type="text/css")/
+link(href="/css/shThemeMDUltra.css" title="theme-mdultra" disabled="disabled" rel="stylesheet" type="text/css")/
+link(href="/css/shThemeMidnight.css" title="theme-midnight" rel="stylesheet" type="text/css")/
+link(href="/css/shThemeRDark.css" title="theme-rdark" disabled="disabled" rel="stylesheet" type="text/css")/
 
 div(class="container")
     div(class="row span8")
@@ -43,14 +50,18 @@ div(class="container")
                 code(style='float:right')
                     :javascript
                         document.write(window.location)
-        span(id="time-left") #{board.timeLeftInSeconds(System.currentTimeMillis)} seconds left
+        p(id="time-left") #{board.timeLeftInSeconds(System.currentTimeMillis)} seconds left
         <script type="text/javascript">
         |    var timeLeftInSeconds = parseInt('#{board.timeLeftInSeconds(System.currentTimeMillis)}'.replace(',',''));
         |    scheduleTimerUpdate('time-left', timeLeftInSeconds);
         | </script>
-        br
+
+    div(class="row span8")
+        p(id="themes")
+            span Theme:
+
     div(class="row span8 offset3")
-        button(class="btn btn-info btn-large" onclick="window.location='/boards/#{board.url}/codesnippet'") share a codesnippet 
+        button(class="btn btn-info btn-large" onclick="window.location='/boards/#{board.url}/codesnippet'") share a codesnippet
 
     div(class="row span11 " id="codeSnippets")
         - for (codeSnippet <- board.codeSnippets.reverse)
