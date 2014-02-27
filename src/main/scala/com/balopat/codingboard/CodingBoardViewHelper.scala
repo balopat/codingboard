@@ -1,13 +1,17 @@
 package com.balopat.codingboard
 
+import com.samebug.notifier.Samebug
 import org.scalatra._
 import scalate.ScalateSupport
 import org.scalatra.json.{JValueResult, JacksonJsonSupport}
 import org.json4s._
 import JsonDSL._
 
-class CodingBoardViewHelper(boards: CodingBoards = CodingBoards.instance) extends ScalatraServlet with ScalateSupport with JValueResult
-with JacksonJsonSupport {
+class CodingBoardViewHelper(boards: CodingBoards = CodingBoards.instance)
+    extends ScalatraServlet
+      with ScalateSupport
+      with JValueResult
+      with JacksonJsonSupport {
   implicit protected val jsonFormats: Formats = DefaultFormats
 
   def postSnippetToBoard(board: String, formToken: String, description: String, code: String, language: String) = {
@@ -77,5 +81,16 @@ with JacksonJsonSupport {
   def index(extraAttributes: (String, Any)*) = {
     contentType = "text/html"
     jade("index", ("boards" -> boards.list :: extraAttributes.toList).toArray: _*)
+  }
+
+   error {
+     case t: Throwable => {
+       Samebug.init()
+       val bugId = Samebug.notify("Unhandled web error", t)
+       <html>
+        <p>Apologies, this was totally unexpected.</p>
+        <p>The error has been <a href={"http://beta.samebug.io/bugs/" + bugId}> logged in Samebug </a>  </p>
+       </html>
+     }
   }
 }
