@@ -4,7 +4,10 @@ UnitTests: [![Build Status](https://codingboard.ci.cloudbees.com/job/codingboard
 Journey Tests: [![Build Status](https://codingboard.ci.cloudbees.com/job/codingboard-journeytests/badge/icon)](https://codingboard.ci.cloudbees.com/job/codingboard-journeytests/)
 Last deployment to Prod: [![Build Status](https://codingboard.ci.cloudbees.com/job/codingboard-deploy-to-heroku/badge/icon)](https://codingboard.ci.cloudbees.com/job/codingboard-deploy-to-heroku/)
 
+codeship: https://codeship.io/projects/c5f50580-c9a3-0131-eedd-762fd394af47/status
+
 [CodingBoard](http://codingboard.org) is a tiny, super-lightweight application to share code in a syntax highlighted way within a room, on short sessions. 
+
 People join to a board (without registration) and post the newest version of their current practice code which the presenter can show on the screen. This way retrospectives can be more fruitful having the code up on the projected screen. 
 
 ## Build & Run ##
