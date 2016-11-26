@@ -1,11 +1,12 @@
 package com.balopat.codingboard.systemtests
 
+
 import org.scalatest._
 import concurrent.{AsyncAssertions, Eventually}
-import org.scalatest.selenium.Chrome
+import org.scalatest.selenium.{Page, Chrome}
 import org.scalatest.time.SpanSugar._
 
-class BoardCreationFlowSpec extends FlatSpec with ShouldMatchers with Eventually with AsyncAssertions with Chrome {
+class BoardCreationFlowSpec extends FlatSpec with Matchers with Eventually with AsyncAssertions with Chrome {
 
   class HomePage extends Page {
     val url = "http://localhost:8080"

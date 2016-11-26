@@ -12,6 +12,9 @@ class CodingBoardsSpec extends Specification {
      val creationTimeInMillis = 1000l
      val isPrivate = false
   }
+  def aTestCodingBoard(name: String = "testingCodingBoard", isPrivate: Boolean = fixture.isPrivate)  = {
+    fixture.boards.create(name, fixture.lengthOfSessionInMillis, fixture.creationTimeInMillis, isPrivate)
+  }
 
   "CodingBoards" should {
 
@@ -100,9 +103,7 @@ class CodingBoardsSpec extends Specification {
       CodingBoards.instance should not beNull
     }
 
-    def aTestCodingBoard(name: String = "testingCodingBoard", isPrivate: Boolean = fixture.isPrivate)  = { 
-        fixture.boards.create(name, fixture.lengthOfSessionInMillis, fixture.creationTimeInMillis, isPrivate)
-    }
+
 
   }
 }

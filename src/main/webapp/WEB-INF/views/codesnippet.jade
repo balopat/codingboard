@@ -2,9 +2,6 @@
 -@val formtoken: String
 - attributes("title") = "CodingBoard- Share your code"
 
-
-
-
 div
     form(method="POST" action="/boards/#{board}/post")
         fieldset
@@ -48,7 +45,7 @@ div
 :javascript
     $('#description').focus()
     
-<script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js" type="text/javascript" charset="utf-8"></script>
 :javascript
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/twilight");

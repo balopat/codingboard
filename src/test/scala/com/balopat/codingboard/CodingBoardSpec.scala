@@ -1,8 +1,16 @@
 package com.balopat.codingboard
 
+import org.fusesource.scalamd.Markdown
 import org.specs2.mutable._
 
 class CodingBoardSpec extends Specification {
+
+  def aBoard() = {
+    val lifeTimeInMinutes =  500000
+    val creationTimeInMillis = 1000
+    val isPrivate = false
+    new CodingBoard("board", lifeTimeInMinutes, creationTimeInMillis, isPrivate)
+  }
 
   "A CodingBoard" should {
        "return it's name in toString" in {
@@ -41,12 +49,6 @@ class CodingBoardSpec extends Specification {
           aBoard.timeLeftInSeconds(201000) should beEqualTo(300)
       }
 
-       def aBoard() = {
-         val lifeTimeInMinutes =  500000
-         val creationTimeInMillis = 1000
-         val isPrivate = false
-         new CodingBoard("board", lifeTimeInMinutes, creationTimeInMillis, isPrivate)
-       }
 
 
   }

@@ -1,6 +1,5 @@
 package com.balopat.codingboard
 
-import com.samebug.notifier.Samebug
 import org.scalatra._
 import scalate.ScalateSupport
 import org.scalatra.json.{JValueResult, JacksonJsonSupport}
@@ -13,6 +12,7 @@ class CodingBoardViewHelper(boards: CodingBoards = CodingBoards.instance)
       with JValueResult
       with JacksonJsonSupport {
   implicit protected val jsonFormats: Formats = DefaultFormats
+
 
   def postSnippetToBoard(board: String, formToken: String, description: String, code: String, language: String) = {
     whenCodingBoardExistsOtherwiseErrorOnHomePage(
@@ -85,11 +85,9 @@ class CodingBoardViewHelper(boards: CodingBoards = CodingBoards.instance)
 
    error {
      case t: Throwable => {
-       Samebug.init()
-       val bugId = Samebug.notify("Unhandled web error", t)
+       log("Error in processing request", t)
        <html>
-        <p>Apologies, this was totally unexpected.</p>
-        <p>The error has been <a href={"http://beta.samebug.io/bugs/" + bugId}> logged in Samebug </a>  </p>
+        <p>Sorry for the inconvenience, this request resulted in an error!</p>
        </html>
      }
   }

@@ -1,5 +1,3 @@
-import com.samebug.notifier.servlet.SamebugFilter
-import com.samebug.notifier.Samebug
 import java.util
 import javax.servlet.DispatcherType
 import org.eclipse.jetty.server.Server
@@ -12,10 +10,7 @@ object JettyLauncher {
 
 
   def main(args: Array[String]) {
-    Samebug.handleUncaughtExceptions()
     val port = if(System.getenv("PORT") != null) System.getenv("PORT").toInt else 8080
-
-    Samebug.init()
 
     val server = new Server(port)
     val context = new WebAppContext()
