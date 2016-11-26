@@ -1,6 +1,4 @@
-import com.typesafe.sbt.SbtStartScript
-
-seq(SbtStartScript.startScriptForClassesSettings: _*)
+import NativePackagerKeys._
 
 organization := "com.balopat"
 
